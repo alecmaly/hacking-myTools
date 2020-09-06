@@ -1,0 +1,43 @@
+body {
+    top: 50px
+}
+
+.copy {cursor: copy;}
+.pointer {cursor: pointer;}
+
+.alert-messages {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    z-index: 7000;
+}
+
+
+/* hover over nav */
+/* Add a black background color to the top navigation */
+.command-nav {
+    /* background-color: #333; */
+    overflow: auto;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .command-nav div {
+    float: left;
+    /* display: block; */
+    /* color: #f2f2f2; */
+    /* text-align: center; */
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .command-nav div:hover {
+    border-bottom: 3px solid red;
+  }
+  
+  .command-nav div.active {
+    border-bottom: 3px solid red;
+  }
+

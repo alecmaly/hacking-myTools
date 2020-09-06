@@ -1,0 +1,1 @@
+var root_uri = 'http://localhost:7000'
