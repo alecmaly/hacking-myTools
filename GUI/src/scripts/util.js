@@ -66,7 +66,7 @@ function displayAlert(classes, msg, timer) {
 async function RefreshAll() {
     GetWorkingDir()
     PopulatePreviousCommandsDropdown()
-    PopulateRanCommands()
+    UpdateRanCommandsGUI()
 }
 
 // working directory functions

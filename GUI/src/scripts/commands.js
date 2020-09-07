@@ -1,4 +1,5 @@
 const cmd_storage_key = 'previous_commands'
+const ranCmd_storage_key = 'ran_commands'
 
 
 // GUI
@@ -41,26 +42,71 @@ function PopulatePreviousCommandsDropdown() {
 
 // ran commands
 //current_ran_command | ran_commands
-function PopulateRanCommands() {
-    ClearRanCommands()
+function UpdateRanCommandsGUI() {
+    ClearRanCommandsGUI()
     const ran_commands_parent = document.querySelector('#ran_commands')
 
-    const previous_commands = GetPreviousCommands()
-    Array.from(previous_commands).forEach(cmd => {
-        var ele = document.createElement('div')
+    const ran_commands = GetRanCommands()
+    Array.from(ran_commands).forEach(cmd => {
+        var container = document.createElement('div')
+
+        // deletion X
+        var delete_obj = document.createElement('span')
+        delete_obj.classList = 'pointer'
+        delete_obj.style.float = 'right'
+        delete_obj.style.color = 'red'
+        delete_obj.innerText = 'X'
+        delete_obj.onclick = () => { alert(cmd.id); DeleteRunCommand(cmd.id); UpdateRanCommandsGUI() }
+
+
+
+        // command
+        var ele = document.createElement('span')
         ele.setAttribute('name', cmd.id)
         ele.classList = 'nav-link ran-command pointer'
-        ele.innerHTML = cmd.cmd
+        ele.innerHTML = cmd.cmd 
         ele.onclick = () => { 
             SetCurrentRanCommand(cmd)
         }
-        
-        ran_commands_parent.prepend(ele)
-    })
 
+        container.appendChild(ele)
+        container.appendChild(delete_obj)
+        
+        ran_commands_parent.prepend(container)
+    })
 }
 
-function ClearRanCommands() {
+function GetRanCommands() {
+    var ran_commands = localStorage.getItem(ranCmd_storage_key)
+    ran_commands = ran_commands != null ? JSON.parse(ran_commands) : []
+    return ran_commands
+}
+
+function SaveCurrentCmdToRanCommands() {
+    // push command to local storage
+    const ran_commands = GetRanCommands()
+
+    const cmd = document.querySelector('#output_cmd').innerText
+    const output = document.querySelector('#current_ran_command').innerText
+
+    ran_commands.push({"id": uuidv4(), "cmd":cmd, "output": output})
+    localStorage.setItem(ranCmd_storage_key, JSON.stringify(ran_commands))
+
+    // console.log(GetRanCommands())
+    UpdateRanCommandsGUI()
+}
+
+function DeleteRanCommand(id) {
+    const ran_commands = GetRanCommands().filter(cmd => { return cmd.id !== id })
+    localStorage.setItem(ranCmd_storage_key, ran_commands)
+}
+
+function ClearRanCommandsFromLocalStorage() {
+    localStorage.removeItem(ranCmd_storage_key)
+    UpdateRanCommandsGUI()
+}
+
+function ClearRanCommandsGUI() {
     const ran_commands_parent = document.querySelector('#ran_commands')
 
     const ran_commands = document.querySelectorAll('.ran-command')
@@ -68,18 +114,21 @@ function ClearRanCommands() {
         ran_commands_parent.removeChild(ele)
     })
 }
-
-
-function SetCurrentRanCommand(cmd) {
+function ClearSelectedRanCommand() {
     const ran_commands_parent = document.querySelector('#ran_commands')
     Array.from(ran_commands_parent.children).forEach(ran_command_ele => {
         ran_command_ele.classList.remove('active')
     })
+}
+
+function SetCurrentRanCommand(cmd) {
+    ClearSelectedRanCommand()
     
     document.querySelector(`[name="${cmd.id}"]`).classList.add('active')
 
     document.querySelector('#current_ran_command').innerText = cmd.output 
-    document.querySelector('#current_ran_command').style.color = cmd.status == 200 ? 'black' : 'red'
+    // document.querySelector('#current_ran_command').style.color = cmd.status == 200 ? 'black' : 'red'
+    document.querySelector('#output_cmd').innerText = cmd.cmd
 }
 
 
@@ -90,7 +139,6 @@ function SetCurrentRanCommand(cmd) {
 function ClearPreviousCommandsFromLocalStorage() {
     localStorage.removeItem(cmd_storage_key)
     PopulatePreviousCommandsDropdown()
-    PopulateRanCommands()
 }
 
 function GetPreviousCommands() {
@@ -128,13 +176,17 @@ async function SetCurrentCommandFromTemplate(key) {
 
 
 
+
+
 async function ExecuteCommand() {
-    const uri = 'http://' + location.host + '/api/util/execute_cmd'
+    const uri = 'http://' + location.host + '/api/util/stream_cmd'
 
     const cmd = document.querySelector('#new_cmd_input').value
     data = {
         "cmd": cmd
     }
+
+    document.querySelector('#output_cmd').innerText = cmd
 
     // execute command
     const resp = await fetch(uri, {
@@ -146,22 +198,34 @@ async function ExecuteCommand() {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     })
     
-    var output = await resp.text().then(text => { return text })
+    const reader = resp.body
+        .pipeThrough(new TextDecoderStream())
+        .getReader()
+
+    let output = ''
+    // clear cmd window
+    document.querySelector('#current_ran_command').innerText = ''
+
+    while (true) {
+        const { value, done } = await reader.read()
+        if (done) break;
+        output += value
+        document.querySelector('#current_ran_command').innerText = output
+        // console.log('Received', value)
+    }
+
+
 
 
     // push command to local storage
     var previous_commands = GetPreviousCommands()
-    previous_commands.push({"id": uuidv4(), "cmd":cmd, "output": output, "status": resp.status})
+    var status = output.split('\n').slice(-1)
+    output = output.split('\n').slice(0, -1).join('\n')
+    previous_commands.push({"id": uuidv4(), "cmd":cmd})
     localStorage.setItem(cmd_storage_key, JSON.stringify(previous_commands))
 
 
     // set previous command dropdown
     PopulatePreviousCommandsDropdown()
-    PopulateRanCommands()
-    // select latest ran command
-
-    // setTimeout(() => {
-        document.querySelector('#ran_commands').children[0].click()
-        
-    // }, 500)
+    UpdateRanCommandsGUI()
 }
