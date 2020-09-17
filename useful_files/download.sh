@@ -18,5 +18,6 @@ cat /opt/myTools/useful_files/util/_github_windows.txt | xargs -I{} sh -c "cd /o
 
 ##  download all
 # github
+mkdir cd /opt/myTools/useful_files/files/all 2>/dev/null
 mkdir cd /opt/myTools/useful_files/files/all/github 2>/dev/null
 cat /opt/myTools/useful_files/util/_github_all.txt | xargs -I{} sh -c "cd /opt/myTools/useful_files/files/all/github; git clone {}"
