@@ -1,1 +1,3 @@
 https://github.com/AlessandroZ/LaZagne
+https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
+

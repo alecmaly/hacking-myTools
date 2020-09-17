@@ -1,2 +1,3 @@
 https://github.com/PowerShellMafia/PowerSploit.git
 https://github.com/samratashok/nishang.git
+https://github.com/gentilkiwi/mimikatz
