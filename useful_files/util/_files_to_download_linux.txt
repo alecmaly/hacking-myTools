@@ -1,0 +1,6 @@
+https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh
+https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh
+https://raw.githubusercontent.com/jondonas/linux-exploit-suggester-2/master/linux-exploit-suggester-2.pl
+https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
+https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64

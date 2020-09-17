@@ -26,11 +26,13 @@ print(args)
 
 print('[+] scanning all ports with masscan')
 os.system('mkdir scans')
-# os.system('masscan -p1-65535,U:1-65535 {} --rate=1000 -e {} > ./scans/masscan.txt'.format(args.address, args.interface))
+cmd = 'masscan -p1-65535,U:1-65535 {} --rate=1000 -e {} > ./scans/masscan.txt'.format(args.address, args.interface)
+print('running: ' + cmd)
+os.system(cmd)
 
 
 
-
+# collect port numbers
 with open('./scans/masscan.txt') as f:
     content = f.readlines()
 # you may also want to remove whitespace characters like `\n` at the end of each line
@@ -47,10 +49,20 @@ ports = list(dict.fromkeys(ports))
 
 
 
+
+# If source is namp output
+#  ports = [x.split(' ')[0].split('/')[0] for x in content if '/tcp' in x or '/udp' in x and 'filtered' not in x]
+# ports = list(dict.fromkeys(ports))
+
+
+
+
 # # TCP scan
-print('[+] TCP nmap scan on ports {}'.format(ports))
-os.system('mkdir scans')
-os.system('nmap -p {} -sU -sT -A -T4 {} -e {} -oA ./scans/nmap'.format(','.join(ports), args.address, args.interface))
+print('[+] TCP/UDP nmap scan on ports {}'.format(ports))
+os.system('mkdir scans/nmap')
+cmd = 'nmap -p {} -sU -sT -A -T4 {} -e {} -oA ./scans/nmap/initial'.format(','.join(ports), args.address, args.interface)
+print('running: ' + cmd)
+os.system(cmd)
 
 
 
@@ -59,19 +71,3 @@ os.system('nmap -p {} -sU -sT -A -T4 {} -e {} -oA ./scans/nmap'.format(','.join(
 
 
 
-
-
-
-
-
-
-
-
-
-
-# function scan_gobuster {
-    
-#     directerties=$(cat 10.10.10.75.txt | cut -d ' ' -f 1| grep "/$")
-#     #for each directory
-#     scan_gobuster $directory
-# }

@@ -17,10 +17,10 @@ args = parser.parse_args()
 
 
 
-# cookies = {'enwiki_session': '17ab96bd8ffbe8ca58a78657a918558'}
+cookies = dict(PHPSESSID="51adc8f5da18e5854e658f4019eeeec6")
 
 # r = requests.get('http://cronos.htb/js/app.js', cookies=args.cookies)
-r = requests.get(args.url, cookies=args.cookies)
+r = requests.get(args.url, cookies=args.cookies, verify=False)
 html = r.text.encode('utf-8')
 # print(html)
 

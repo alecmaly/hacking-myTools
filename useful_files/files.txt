@@ -1,2 +1,0 @@
-https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
-https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh
