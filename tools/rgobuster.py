@@ -7,7 +7,7 @@ import sys
 
 
 ## note, first set environment alias
-# alias rgobuster="python3 /opt/myTools/tools/rgobuster.py"
+# alias rgobuster="python3 /opt/hacking-myTools/tools/rgobuster.py"
 
 
 
@@ -78,7 +78,7 @@ class RecursiveGobuster():
                 args[args.index('-u')+1] = new_url
                 # NOTE, must map rgobuster script as alias
                 print('rgobuster {}'.format(' '.join(args)))
-                os.system('python3 /opt/myTools/tools/rgobuster.py {}'.format(' '.join(args)))
+                os.system('python3 /opt/hacking-myTools/tools/rgobuster.py {}'.format(' '.join(args)))
         except Exception as e:
             cmd = "gobuster {} ".format(' '.join(args))
             os.system(cmd)

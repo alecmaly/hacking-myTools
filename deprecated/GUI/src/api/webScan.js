@@ -22,7 +22,7 @@ router.post('/extract_comments', function (req, res) {
     
     exec(`mkdir ${working_dir}/scans`)
     exec(`mkdir ${working_dir}/scans/scraped_comments`)
-    exec(`python3 /opt/myTools/tools/extract_comments.py -u "${url}" -c "${cookies}" > ${working_dir}/scans/scraped_comments/tmp &`, (error, stdout, stderr) => {
+    exec(`python3 /opt/hacking-myTools/tools/extract_comments.py -u "${url}" -c "${cookies}" > ${working_dir}/scans/scraped_comments/tmp &`, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;

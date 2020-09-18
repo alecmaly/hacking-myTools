@@ -3,7 +3,7 @@
 #### rgobuster
 set 
 ```
-alias rgobuster="python3 /opt/myTools/tools/rgobuster.py"
+alias rgobuster="python3 /opt/hacking-myTools/tools/rgobuster.py"
 ```
 
 
