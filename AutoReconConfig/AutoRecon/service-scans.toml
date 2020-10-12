@@ -156,7 +156,7 @@ ignore-service-names = [
     [[http.manual]]
     description = '(ffuf) Directory/file enumeration for web servers using various wordlists (same as dirb above):'
     commands = [
-        'ffuf -u {scheme}://{address}:{port}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" --recusion --recusion-depth 3 -k -e .html,.php,.txt,.asp,.aspx,.jsp -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt'
+        'ffuf -u {scheme}://{address}:{port}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -recusion -recusion-depth 3 -k -e .html,.php,.txt,.asp,.aspx,.jsp -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt'
     ]
 
     [[http.manual]]
