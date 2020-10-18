@@ -564,4 +564,3 @@ function Find-MS16135 {
     Set-ExploitTable $MSBulletin $VulnStatus
 
 }
-Find-AllVulns
