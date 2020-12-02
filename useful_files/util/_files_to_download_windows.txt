@@ -2,3 +2,7 @@ https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scrip
 https://raw.githubusercontent.com/rasta-mouse/Sherlock/master/Sherlock.ps1
 https://raw.githubusercontent.com/AonCyberLabs/Windows-Exploit-Suggester/master/windows-exploit-suggester.py
 https://raw.githubusercontent.com/411Hall/JAWS/master/jaws-enum.ps1
+https://raw.githubusercontent.com/Arvanaghi/SessionGopher/master/SessionGopher.ps1
+https://download.sysinternals.com/files/AccessChk.zip
+https://download.sysinternals.com/files/Autoruns.zip
+
