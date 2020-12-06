@@ -3,11 +3,22 @@
 # smbclient \\\\10.10.10.178\\Users -U c.smith%xRxRxPANCAK3SxRxRx -c 'recurse;ls' > output
 
 
+
+
+#### STEP 1: Dump shares
+# smbclient -U '%' -L //IP
+
+#### STEP 2: Run this script on each share
+# getSmbAlternativeDataStreamFiles.sh -U '%' -N //IP/$share
+
+
+
+
 echo $@
 domain_share_path=$(echo $@ | grep -o '\\\\.*\\\w*')
 
 # # get files from share recursively
-# smbclient $@ -c 'recurse;ls' |sed 's/\\/\\\\/g' > output
+smbclient $@ -c 'recurse;ls' |sed 's/\\/\\\\/g' > output
 
 
 

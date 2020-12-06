@@ -156,7 +156,7 @@ ignore-service-names = [
     [[http.manual]]
     description = '(ffuf) Directory/file enumeration for web servers using various wordlists (same as dirb above):'
     commands = [
-        'ffuf -u {scheme}://{address}:{port}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -ic -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -recusion -recusion-depth 3 -k -e .html,.php,.txt,.asp,.aspx,.jsp -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt'
+        'ffuf -ic -u {scheme}://{address}:{port}/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -recusion -recusion-depth 3 -k -e .html,.php,.txt,.asp,.aspx,.jsp -x http://localhost:8080 -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt'
     ]
 
     [[http.manual]]
@@ -469,9 +469,7 @@ service-names = [
     [[smb.manual]]
     description = 'Nmap scans for SMB vulnerabilities that could potentially cause a DoS if scanned (according to Nmap). Be careful:'
     commands = [
-        'nmap {nmap_extra} -sV -p {port} --script="smb-vuln-ms06-025" --script-args="unsafe=1" -oN "{scandir}/{protocol}_{port}_smb_ms06-025.txt" -oX "{scandir}/xml/{protocol}_{port}_smb_ms06-025.xml" {address}',
-        'nmap {nmap_extra} -sV -p {port} --script="smb-vuln-ms07-029" --script-args="unsafe=1" -oN "{scandir}/{protocol}_{port}_smb_ms07-029.txt" -oX "{scandir}/xml/{protocol}_{port}_smb_ms07-029.xml" {address}',
-        'nmap {nmap_extra} -sV -p {port} --script="smb-vuln-ms08-067" --script-args="unsafe=1" -oN "{scandir}/{protocol}_{port}_smb_ms08-067.txt" -oX "{scandir}/xml/{protocol}_{port}_smb_ms08-067.xml" {address}'
+        'nmap {nmap_extra} -sV -p {port} --script="smb-vuln-*" --script-args="unsafe=1" -oN "{scandir}/{protocol}_{port}_smb_vulns.txt" -oX "{scandir}/xml/{protocol}_{port}_smb_vulns.xml" {address}'
     ]
 
 [smtp]
