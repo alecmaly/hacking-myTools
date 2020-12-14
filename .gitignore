@@ -1,9 +1,14 @@
 __pycache__
 node_modules
 
-/useful_files/files/linux/downloaded
+/useful_files/files/linux
 /useful_files/files/linux/github
 /useful_files/files/windows/downloaded
 /useful_files/files/windows/github
 /useful_files/files/all/downloaded
 /useful_files/files/all/github
+
+
+*.pyc
+*/pattern
+*.bin

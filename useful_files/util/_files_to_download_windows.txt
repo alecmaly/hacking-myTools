@@ -5,4 +5,4 @@ https://raw.githubusercontent.com/411Hall/JAWS/master/jaws-enum.ps1
 https://raw.githubusercontent.com/Arvanaghi/SessionGopher/master/SessionGopher.ps1
 https://download.sysinternals.com/files/AccessChk.zip
 https://download.sysinternals.com/files/Autoruns.zip
-
+https://download.sysinternals.com/files/PSTools.zip
