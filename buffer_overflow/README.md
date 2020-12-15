@@ -8,6 +8,8 @@ The scripts are a bit rough (and are Python 2) but if you've read Justin Steven'
 2. You will also need to modify `send_payload()` so that the payload is properly sent to the vulnerable service; the example `send_payload()` interacts with an FTP server with the overflow in the password field.
 3. Run the scripts in order, following the prompts and comments.
 
+# Boofuzz
+- Check 'View > SEH Chain' in addition to EIP for control
 
 
 # MONA
