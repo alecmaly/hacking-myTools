@@ -29,4 +29,5 @@ print "\nPrepare for next step: bad characters"
 cmd = "!mona bytearray -b '\\x00\\x0d\\x0a'"
 pyperclip.copy(cmd)
 print "reset with (copied to clipboard): %s" % cmd
+print "Update constants file with MONA_BYTEARRAY_FILE location"
 

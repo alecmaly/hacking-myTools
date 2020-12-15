@@ -8,7 +8,6 @@ counter = 100
 
 cmd = "!mona config -set workingfolder c:\mona\%p"
 print "\n\n\nRun in Immunity (copied to clipboard): %s" % cmd
-print "Update constants file with MONA_BYTEARRAY_FILE location"
 pyperclip.copy(cmd)
 print "\nPaste the buffer length that causes crash into constants.py as BUFFER_TOTLEN"
 
