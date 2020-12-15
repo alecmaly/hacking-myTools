@@ -22,6 +22,6 @@ cat /opt/hacking-myTools/useful_files/util/_github_windows.txt | xargs -I{} sh -
 
 ##  download all
 # github
-mkdir cd /opt/hacking-myTools/useful_files/files/all 2>/dev/null
-mkdir cd /opt/hacking-myTools/useful_files/files/all/github 2>/dev/null
+mkdir /opt/hacking-myTools/useful_files/files/all 2>/dev/null
+mkdir /opt/hacking-myTools/useful_files/files/all/github 2>/dev/null
 cat /opt/hacking-myTools/useful_files/util/_github_all.txt | xargs -I{} sh -c "cd /opt/hacking-myTools/useful_files/files/all/github; git clone {}"
