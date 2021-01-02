@@ -134,7 +134,8 @@ ignore-service-names = [
     [[http.manual]]
     description = '(ffuf) Directory/file enumeration for web servers using various wordlists (same as dirb above):'
     commands = [
-        'ffuf -ic -u {scheme}://{address}:{port}/FUZZ -w /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -k -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt -e .html,.php,.txt,.asp,.aspx,.jsp'
+        'ffuf -ic -u {scheme}://{address}:{port}/FUZZ -w /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -k -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt -e .html,.php,.txt,.asp,.aspx,.jsp',
+        'ffuf -ic -u {scheme}://{address}:{port}/FUZZ -w /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -k -o {scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt -e $(/opt/hacking-myTools/tools/check_web_extnsions.py)'
     ]
 
     [[http.manual]]
