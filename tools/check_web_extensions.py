@@ -1,11 +1,16 @@
 #!/bin/python3
 
 
-
+import sys
 import requests
 from statistics import mode
 
-url = 'https://google.com/index'
+if len(sys.argv) != 2:
+    print('Missing parameter for url')
+    sys.exit()
+
+url = sys.argv[1]
+url = url + '/index'
 # url = 'http://192.168.80.65/index'
 
 potential_extensions = ['', '.php', '.jsp', '.html', '.htm', '.asp', '.aspx']
