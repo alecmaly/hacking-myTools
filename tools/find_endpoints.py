@@ -37,7 +37,7 @@ with open(tmp_file_path, 'w') as f:
         f.write("{}\n".format(x))
 
 # get valid urls
-cmd = "cat {}|sort|uniq | httpx -silent -mc 200,302 -status-code -content-length -no-color  > {}-output; rm {}".format(tmp_file_path, tmp_file_path, tmp_file_path)
+cmd = "cat {}|sort|uniq | httpx -silent -mc 200,302 -status-code -content-length -no-color > {}-output; rm {}".format(tmp_file_path, tmp_file_path, tmp_file_path)
 # print(cmd)
 stream = os.popen(cmd)
 output = stream.read()
@@ -45,7 +45,7 @@ output = stream.read()
 
 
 # get valid urls
-cmd = "cat {}-output; rm {}-output".format(tmp_file_path, tmp_file_path)
+cmd = "cat {}-output |sort| uniq; rm {}-output".format(tmp_file_path, tmp_file_path)
 # print(cmd)
 stream = os.popen(cmd)
 output = stream.read()
