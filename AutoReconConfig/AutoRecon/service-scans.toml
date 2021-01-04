@@ -125,6 +125,13 @@ ignore-service-names = [
     name = 'whatweb'
     command = 'whatweb --color=never --no-errors -a 3 -v {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_whatweb.txt"'
 
+    [[http.scan]]
+    name = 'endpoints'
+    command = 'python3 /opt/hacking-myTools/tools/find_endpoints.py {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_endpoints.txt"'
+
+    [[http.scan]]
+    command = 'ffuf -ic -u {scheme}://{address}:{port}/FUZZ -w /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36" -k -e $(python3 /opt/hacking-myTools/tools/check_web_extensions.py "{scheme}://{address}:{port}") 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_ffuf_medium.txt"'
+
     [[http.manual]]
     description = '(nikto)'
     commands = [
