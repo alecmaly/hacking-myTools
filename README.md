@@ -9,3 +9,8 @@ git clone https://alecjmaly@github.com/alecjmaly/hacking-myTools.git && mv hacki
 
 #### to do
 - add https://ohpe.it/juicy-potato/ to windows
+
+
+# Note
+- Notating script for Joplin in another repository
+  - joplin-customization
