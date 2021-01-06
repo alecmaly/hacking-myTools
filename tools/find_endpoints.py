@@ -4,6 +4,7 @@ import sys
 import os
 import re
 import uuid
+import requests
 
 # url = 'http://192.168.143.106'
 if (len(sys.argv) < 2):
@@ -12,6 +13,9 @@ url = sys.argv[1]
 
 uuid = str(uuid.uuid4())
 
+# use requests library to follow redirect and get proper url
+resp = requests.get(url)
+url = resp.url
 
 cmd = 'hakrawler -url {} -linkfinder -plain -depth 3'.format(url)
 # print(cmd)
