@@ -4,3 +4,4 @@ https://raw.githubusercontent.com/Arvanaghi/SessionGopher/master/SessionGopher.p
 https://download.sysinternals.com/files/AccessChk.zip
 https://download.sysinternals.com/files/Autoruns.zip
 https://download.sysinternals.com/files/PSTools.zip
+https://raw.githubusercontent.com/AonCyberLabs/Windows-Exploit-Suggester/master/windows-exploit-suggester.py

@@ -2,3 +2,5 @@ https://github.com/PowerShellMafia/PowerSploit.git
 https://github.com/samratashok/nishang.git
 https://github.com/gentilkiwi/mimikatz
 https://github.com/EmpireProject/Empire.git
+https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git
+https://github.com/bitsadmin/wesng.git
