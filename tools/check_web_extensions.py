@@ -13,6 +13,7 @@ url = sys.argv[1]
 url = url + '/index'
 # url = 'http://192.168.80.65/index'
 
+# check .asp and .aspx pages?..
 potential_extensions = ['', '.php', '.jsp', '.html', '.htm', '.asp', '.aspx']
 
 
