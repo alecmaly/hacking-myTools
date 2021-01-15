@@ -42,6 +42,17 @@ def update(obj, payload):
 proxies = {}
 
 
+def normal_request_size():
+    if method_name.lower() == "get":
+        r = requests.get(url = args['url'] + resource_name , headers = headers , proxies = proxies , verify = False)
+    elif method_name.lower() == "post":
+        r = requests.post(url = args['url'] + resource_name, headers = headers , data = post_data , proxies = proxies , verify = False)
+
+    return len(r.text)
+
+n_size = normal_request_size()
+
+
 # make requests
 responses = []
 # proxies = {'http': 'http://localhost:8080'}
@@ -107,6 +118,8 @@ for x in [x for x in responses if int(x['time']) >= time_threashold]:
 
 
 
+for x in [x for x in responses if int(x['size']) > n_size-100 and int(x['size']) < n_size+100]:
+    print(x)
 
 
 
