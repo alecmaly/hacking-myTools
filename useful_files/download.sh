@@ -21,6 +21,8 @@ cat /opt/hacking-myTools/useful_files/util/_github_windows.txt | xargs -I{} sh -
 
 
 ##  download all
+# files
+cat /opt/hacking-myTools/useful_files/util/_files_to_download_all.txt | xargs wget -N -P /opt/hacking-myTools/useful_files/files/all
 # github
 mkdir /opt/hacking-myTools/useful_files/files/all 2>/dev/null
 mkdir /opt/hacking-myTools/useful_files/files/all/github 2>/dev/null
