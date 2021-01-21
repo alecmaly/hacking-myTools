@@ -1,0 +1,14 @@
+POST /verify HTTP/1.1
+Host: 192.168.136.117:50000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+DNT: 1
+Connection: close
+Cookie: _register_hetemit_session=1L2FrTRpJfILbhnsUbBZI3Zc7RSimedbJmnvrE6WzJESjLR%2FFC0Ps4GcBZY%2Bx9ekLsQtBT1ET2mad3jtUE07fdy6tm9rG7KcetWAjJkp6kunE69dKB44gw72bvnP0uJfYQ1R4FZjWIurZBT%2FDjQkwRAxjN6W0axjAr%2FBZqWdM4pe2ZMU8MVhzEmozxQ7N8CqEjfAYPZhmhNHkZjEvMvcPWkTs8Rf7QlAxjvYNc%2FqNLbRtl4F792MVU7qo72R5BQNTewedGLmoKHYYwU%2BxZQN66PzhaIFFsdQPdpvrvgGVqgi--0Rx5nUDM1yHw3Cu3--Gl1U4cNtQhrQmuN9IK0zdw%3D%3D
+Upgrade-Insecure-Requests: 1
+Content-Length: 10
+Content-Type: application/x-www-form-urlencoded
+
+code=FUZZ
