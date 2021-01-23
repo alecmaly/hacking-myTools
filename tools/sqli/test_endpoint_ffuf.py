@@ -25,12 +25,20 @@ parser.add_argument('-u', '--url', default='', required=True)
 parser.add_argument('-r', '--request', required=True)
 parser.add_argument('-w', '--wordlist', default='/opt/SecLists/Fuzzing/SQLi/Generic-SQLi.txt', required=False)
 parser.add_argument('-s', '--scan-type', default='all', required=False, help='s - sqli\na - api action\no - api object\nh - headers\ns - swap GET/POST\nall - all')
+parser.add_argument('-p', '--params', default='', required=False, help='Comma seperated params to fuzz.')
+parser.add_argument('-t', '--time-threshold', default=4000, required=False, help='Time threshold in miliseconds (ms).')
+
 
 args = parser.parse_args()
 args.url = re.sub('/*$', '', args.url)  # strip trailing / on url
 args.scan_type = [x.strip() for x in args.scan_type.split(',')] # parse scan-type args
 
+## modifiable config
 proxies = {}
+
+
+
+
 
 # parse burp .req
 headers , post_data = burpee.parse_request(args.request)
@@ -46,7 +54,8 @@ method_name , resource_name = burpee.get_method_and_resource(args.request)
 
 ##### ---------------------------
 
-def test(req_obj, wordlist=args.wordlist, output_file='tmp.json'):
+def test(req_obj, wordlist=args.wordlist, test_title='', output_file='tmp.json'):
+    print(f"\n{bcolors.BOLD}{bcolors.HEADER}{test_title}{bcolors.ENDC}{bcolors.ENDC}")
     headers_str = ''
     for header in req_obj['headers']:
         headers_str += f"-H '{header}: {req_obj['headers'][header]}' "
@@ -55,10 +64,10 @@ def test(req_obj, wordlist=args.wordlist, output_file='tmp.json'):
     # update User-Agent header
     cmd = ''
     if req_obj['method_name'].lower() == "get":
-        cmd = f"ffuf -mc all -ic -X {req_obj['method_name']} -u '{req_obj['url']}' {headers_str} -w {wordlist} -of json -o {output_file}"
+        cmd = f"/opt/ffuf/ffuf -s -mc all -ic -X {req_obj['method_name']} -u '{req_obj['url']}' {headers_str} -w {wordlist} -of json -o {output_file}"
     elif req_obj['method_name'].lower() == "post":
         # update content type (application/x-www-form-urlencoded)
-        cmd = f"ffuf -mc all -ic -X {req_obj['method_name']} -u '{req_obj['url']}' -d '{req_obj['post_data']}' {headers_str} -w {wordlist} -of json -o {output_file}"
+        cmd = f"/opt/ffuf/ffuf -s -mc all -ic -X {req_obj['method_name']} -u '{req_obj['url']}' -d '{req_obj['post_data']}' {headers_str} -w {wordlist} -of json -o {output_file}"
 
 
     # cmd = f'ffuf -ic -u {args.url} -request {args.request} -w {args.wordlist} -of json -o {output_file}'
@@ -68,7 +77,7 @@ def test(req_obj, wordlist=args.wordlist, output_file='tmp.json'):
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
     # print("Happens while running")
     p.communicate() #now wait plus that you can send commands to process
-    print('done.')
+    # print('done.')
 
 
 
@@ -95,7 +104,7 @@ def test(req_obj, wordlist=args.wordlist, output_file='tmp.json'):
         mode_size = statistics.mode([x['length'] for x in data['results']])
 
 
-        print('\nSize anomolies')
+        print(f'\nSize anomolies (mode: {mode_size})')
         for size in sorted(set([x['length'] for x in data['results'] if x['length'] != mode_size])):
             items = [x for x in data['results'] if x['length'] == size]
             # print('size: {}'.format(size), len(items))
@@ -106,12 +115,24 @@ def test(req_obj, wordlist=args.wordlist, output_file='tmp.json'):
                     'payload': x['input']['FUZZ']
                 })
 
-        print('\nStatus anomolies')
+        print(f'\nStatus anomolies (mode: {mode_code})')
         for x in [x for x in data['results'] if x['status'] != mode_code]:
             print({
                 'status': x['status'],
                 'size': x['length'], 
                 'payload': x['input']['FUZZ']
+            })
+
+        
+        print(f'\nTime anomolies (threshold: {args.time_threshold})')
+        time_anomolies = [x for x in data['results'] if x['responsetime'] >= int(args.time_threshold)]  
+        for x in sorted(time_anomolies, key = lambda i: i['responsetime'], reverse=True)[:5]:
+        # for x in [x for x in data['results'] if x['responsetime'] >= int(args.time_threshold)]:
+            print({
+                'status': x['status'],
+                'size': x['length'], 
+                'payload': x['input']['FUZZ'],
+                'time': x['responsetime']
             })
 
         print(f'{bcolors.ENDC}')
@@ -154,12 +175,12 @@ def get_actions(req_obj):
     if req_obj['method_name'].lower() == 'post':
         params = req_obj['post_data']
 
-    print(params)
+    # print(params)
     for param in params.split('&'):
         actions.append(param.split('=')[0])
 
     # print(req_obj)
-    print(actions)
+    # print(actions)
     return actions
 
 
@@ -180,18 +201,20 @@ req_obj_orig = {
 
 def test_actions(req_obj):
     ### FUZZ ACTIONS
-    actions = get_actions(req_obj)
+    actions = args.params.split(',') if args.params else get_actions(req_obj)
 
     # original request
-    for action in actions: 
-        print(action)
+    for action in actions:
+        if action not in get_actions(req_obj):
+            continue 
         req_obj_tmp = copy.deepcopy(req_obj)
         req_obj_tmp['url'] = req_obj_tmp['url'].replace(action+'=', 'FUZZ=')
         req_obj_tmp['post_data'] = req_obj_tmp['post_data'].replace(action+'=', 'FUZZ=')
         req_obj_tmp['resource_name'] = req_obj_tmp['resource_name'].replace(action+'=', 'FUZZ=')
 
         # test(req_obj_tmp, wordlist='/opt/SecLists/Discovery/Web-Content/api/actions.txt')
-        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt')
+        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt', test_title=f"TESTING Actions (param) - All ({action})")
+        ## test SQLI if needed
 
 
 
@@ -208,11 +231,12 @@ def test_objects(req_obj):
     # TO DO: TEST ARITHMATIC INJECTIONS
 
     ### FUZZ ACTIONS
-    actions = get_actions(req_obj)
+    actions = args.params.split(',') if args.params else get_actions(req_obj)
 
     # original request
     for action in actions: 
-        print(action)
+        if action not in get_actions(req_obj):
+            continue 
         req_obj_tmp = copy.deepcopy(req_obj)
         req_obj_tmp['url'] = replace_object(req_obj_tmp['url'], action)
         req_obj_tmp['post_data'] = replace_object(req_obj_tmp['post_data'], action)
@@ -220,57 +244,41 @@ def test_objects(req_obj):
 
         # print(req_obj_tmp)
         # test(req_obj_tmp, wordlist='/opt/SecLists/Discovery/Web-Content/api/objects.txt')
-        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt')
+        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt', test_title=f"TESTING Objects (value) - All ({action})")
+        test_arithmetict(req_obj_tmp)
+        test(req_obj_tmp, wordlist='/opt/SecLists/Fuzzing/SQLi/Generic-SQLi.txt', test_title="TESTING SQLI ({action}=)")
 
 
 
 
-
-
-def test_arithmetict_(req_obj):
+def test_arithmetict(req_obj):
+    print(f"\n{bcolors.BOLD}{bcolors.HEADER}TESTING ARITHMATIC{bcolors.ENDC}{bcolors.ENDC}")
     # TO DO: TEST ARITHMATIC INJECTIONS
+    # 133225
+    payloads = [
+        '365*365',
+        '${365*365}',
+        '%{365*365}',
+        '@(365*365)'
+    ]
 
-    ### FUZZ ACTIONS
-    actions = get_actions(req_obj)
+    for payload in payloads:
+        req_obj_arithmetic = copy.deepcopy(req_obj)
+        req_obj_arithmetic['url'] = req_obj_arithmetic['url'].replace('FUZZ', payload)
+        req_obj_arithmetic['post_data'] = req_obj_arithmetic['post_data'].replace('FUZZ', payload)
+        req_obj_arithmetic['resource_name'] = req_obj_arithmetic['resource_name'].replace('FUZZ', payload)
 
-    # original request
-    for action in actions: 
-        print(action)
-        req_obj_tmp = copy.deepcopy(req_obj)
-        req_obj_tmp['url'] = replace_object(req_obj_tmp['url'], action)
-        req_obj_tmp['post_data'] = replace_object(req_obj_tmp['post_data'], action)
-        req_obj_tmp['resource_name'] = replace_object(req_obj_tmp['resource_name'], action)
-
-        # print(req_obj_tmp)
-        # test(req_obj_tmp, wordlist='/opt/SecLists/Discovery/Web-Content/api/objects.txt')
-        test(req_obj_tmp, wordlist='./all.txt')
-
-
-
-##### TESTING ARITHAMTIC
-
-
-def detect_arithmetic(self, base):
-    x = random.randint(99, 9999)
-    y = random.randint(99, 9999)
-    probe = str(x) + '*' + str(y)
-    expect = str(x * y)
-    return probe, expect
-
-def detect_expression(self, base):
-    probe, expect = self.detect_arithmetic(base)
-    return '${' + probe + '}', expect
-
-def detect_alt_expression(self, base):
-    probe, expect = self.detect_arithmetic(base)
-    return '%{' + probe + '}', expect
-
-def detect_razor_expression(self, base):
-    probe, expect = self.detect_arithmetic(base)
-    return '@(' + probe + ')', expect
+        if method_name.lower() == "get":
+            resp = requests.get(url = req_obj_arithmetic['url'] , headers = req_obj_arithmetic['headers'] , proxies = proxies , verify = False)
+        
+        elif method_name.lower() == "post":
+            resp = requests.post(url = req_obj_arithmetic['url'] , headers = req_obj_arithmetic['headers'] , data = req_obj_arithmetic['post_data'] , proxies = proxies , verify = False)
+        
+        if '133225' in resp.text:
+            print(f'{bcolors.FAIL}[!] Found reflected payload: {payload}\n{req_obj_arithmetic}{bcolors.ENDC}')
 
 
-### FINISH TESTING ARITHMATIC
+
 
 
 test_actions(req_obj_orig)
