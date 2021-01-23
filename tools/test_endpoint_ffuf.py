@@ -213,7 +213,7 @@ def test_actions(req_obj):
         req_obj_tmp['resource_name'] = req_obj_tmp['resource_name'].replace(action+'=', 'FUZZ=')
 
         # test(req_obj_tmp, wordlist='/opt/SecLists/Discovery/Web-Content/api/actions.txt')
-        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt', test_title=f"TESTING Actions (param) - All ({action})")
+        test(req_obj_tmp, wordlist='/opt/hacking-myTools/wordlists/api-all.txt', test_title=f"TESTING Actions (param) - All ({action})")
         ## test SQLI if needed
 
 
@@ -244,7 +244,7 @@ def test_objects(req_obj):
 
         # print(req_obj_tmp)
         # test(req_obj_tmp, wordlist='/opt/SecLists/Discovery/Web-Content/api/objects.txt')
-        test(req_obj_tmp, wordlist='/opt/hacking-myTools/tools/sqli/wordlists/all.txt', test_title=f"TESTING Objects (value) - All ({action})")
+        test(req_obj_tmp, wordlist='/opt/hacking-myTools/wordlists/api-all.txt', test_title=f"TESTING Objects (value) - All ({action})")
         test_arithmetict(req_obj_tmp)
         test(req_obj_tmp, wordlist='/opt/SecLists/Fuzzing/SQLi/Generic-SQLi.txt', test_title="TESTING SQLI ({action}=)")
 
@@ -289,4 +289,4 @@ test_objects(swap(req_obj_orig))
 
 
 # test(req_obj)
-
+os.remove("tmp.json")
