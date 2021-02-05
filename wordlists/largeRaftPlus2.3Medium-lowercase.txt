@@ -1,3 +1,5 @@
+README.md
+.git
 cgi-bin
 images
 admin
@@ -37282,7 +37284,6 @@ wp-cumulus
 wpm
 xoport
 xpackage
-.git
 .pps
 .require-once
 databackup
