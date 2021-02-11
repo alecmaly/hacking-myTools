@@ -1,5 +1,7 @@
 README.md
+.git/HEAD
 .git
+CFIDE/administrator
 cgi-bin
 images
 admin
