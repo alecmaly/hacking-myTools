@@ -5,3 +5,4 @@ https://raw.githubusercontent.com/jondonas/linux-exploit-suggester-2/master/linu
 https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy32
 https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64
 https://raw.githubusercontent.com/Critical-Start/FallofSudo/master/fallofsudo.py
+https://raw.githubusercontent.com/diego-treitos/linux-smart-enumeration/master/lse.sh
