@@ -115,6 +115,10 @@ ignore-service-names = [
     command = 'curl -sSik {scheme}://{address}:{port}/robots.txt -m 10 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_robots.txt"'
 
     [[http.scan]]
+    name = 'shocker-check-cgi-bin'
+    command = 'python2.7 /opt/hacking-myTools/tools/shocker/shocker_checker.py --cgilist /opt/hacking-myTools/tools/shocker/shocker-cgi_list --Host {address} --port {port} --protocol {scheme} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_shocker-cgi-check.txt"'
+
+    [[http.scan]]
     name = 'wkhtmltoimage'
     command = 'if hash wkhtmltoimage 2> /dev/null; then wkhtmltoimage --format png {scheme}://{address}:{port}/ {scandir}/{protocol}_{port}_{scheme}_screenshot.png; fi'
 
