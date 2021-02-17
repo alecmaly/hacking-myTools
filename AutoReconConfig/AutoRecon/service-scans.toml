@@ -187,6 +187,12 @@ service-names = [
     name = 'nmap-kerberos'
     command = 'nmap {nmap_extra} -sV -p {port} --script="banner,krb5-enum-users" -oN "{scandir}/{protocol}_{port}_kerberos_nmap.txt" -oX "{scandir}/xml/{protocol}_{port}_kerberos_nmap.xml" {address}'
 
+    [[kerberos.manual]]
+    description = 'kerbrute users (Requires ldap to auto find domain)'
+    commands = [
+        'target_domain=$(nmap --script ldap-rootdse {address}  | grep ldapServiceName | cut -d':' -f2 | sed 's/ //g') && kerbrute userenum --dc {address} -d $(echo $target_domain) /opt/hacking-myTools/wordlists/names_combined_lower.txt 2>&1 | tee > "{scandir}/{protocol}_{port}_kerbrute_users.txt"'
+    ]
+
 [ldap]
 
 service-names = [
