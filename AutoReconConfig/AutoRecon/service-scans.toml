@@ -190,7 +190,7 @@ service-names = [
     [[kerberos.manual]]
     description = 'kerbrute users (Requires ldap to auto find domain)'
     commands = [
-        'target_domain=$(nmap --script ldap-rootdse {address}  | grep ldapServiceName | cut -d':' -f2 | sed 's/ //g') && kerbrute userenum --dc {address} -d $(echo $target_domain) /opt/hacking-myTools/wordlists/names_combined_lower.txt 2>&1 | tee > "{scandir}/{protocol}_{port}_kerbrute_users.txt"'
+        'target_domain=$(nmap --script ldap-rootdse {address}  | grep ldapServiceName | cut -d":" -f2 | sed "s/ //g") && kerbrute userenum --dc {address} -d $(echo $target_domain) /opt/hacking-myTools/wordlists/names_combined_lower.txt 2>&1 | tee > "{scandir}/{protocol}_{port}_kerbrute_users.txt"'
     ]
 
 [ldap]
