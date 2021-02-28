@@ -255,7 +255,7 @@ service-names = [
 
     [[mysql.scan]]
     name = 'hydra-brute-default-mysql'
-    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra.txt" ftp://{address}'
+    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra.txt" mysql://{address}'
 
 
 [postgres]

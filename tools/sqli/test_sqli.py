@@ -3,6 +3,7 @@ import requests
 import argparse
 import statistics
 import re
+
 # https://github.com/xscorp/Burpee
 
 
@@ -22,6 +23,8 @@ parser = argparse.ArgumentParser(description='python testsqli.py -u url -r reque
 parser.add_argument('-u', '--url', default='', required=True)
 parser.add_argument('-r', '--request', required=True)
 parser.add_argument('-w', '--wordlist', default='/opt/SecLists/Fuzzing/SQLi/Generic-SQLi.txt',required=False)
+parser.add_argument('-t', '--threads', default=3,required=False)
+
 args = parser.parse_args()
 args.url = re.sub('/*$', '', args.url)  # strip trailing / on url
 
