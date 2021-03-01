@@ -255,8 +255,7 @@ service-names = [
 
     [[mysql.scan]]
     name = 'hydra-brute-default-mysql'
-    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra.txt" mysql://{address}'
-
+    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra_common_pass.txt" mysql://{address} && hydra -l root -P /opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt -e nsr -s 3306 -o "{scandir}/{protocol}_{port}_mysql_hydra_root_top1000.txt" mysql://{address}'
 
 [postgres]
 
@@ -265,8 +264,7 @@ service-names = [
 ]
     [[postgres.scan]]
     name = 'hydra-brute-default-postgres'
-    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/postgres-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra.txt" ftp://{address}'
-
+    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/postgres-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra_common.txt" {address} postgres && hydra -l postgres -P "/opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra_postgres_top1000.txt" {address} postgres'
 
 [nfs]
 
@@ -392,6 +390,10 @@ service-names = [
     name = 'nmap-msrpc'
     command = 'nmap {nmap_extra} -sV -p {port} --script="banner,msrpc-enum,rpc-grind,rpcinfo" -oN "{scandir}/{protocol}_{port}_rpc_nmap.txt" -oX "{scandir}/xml/{protocol}_{port}_rpc_nmap.xml" {address}'
 
+    [[rpc.scan]]
+    name = 'nmap-rpc-mounted-drives'
+    command = 'nmap -p {port} --script=nfs-ls,nfs-statfs,nfs-showmount {address} -oN "{scandir}/{protocol}_{port}_rpc_nmap_mounted_{port}.txt"'
+
     [[rpc.manual]]
     description = 'RPC Client:'
     commands = [
@@ -439,6 +441,11 @@ service-names = [
     [[smb.scan]]
     name = 'nmap-smb'
     command = 'nmap {nmap_extra} -sV -p {port} --script="banner,(nbstat or smb* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" --script-args="unsafe=1" -oN "{scandir}/{protocol}_{port}_smb_nmap.txt" -oX "{scandir}/xml/{protocol}_{port}_smb_nmap.xml" {address}'
+
+    [[smb.scan]]
+    name = 'nmap-vuln-smb'
+    command = 'nmap -p {port} --script smb-vuln-* -oN "{scandir}/{protocol}_{port}_smb_vuln_nmap.txt" {address}'
+
 
     [[smb.scan]]
     name = 'enum4linux'
