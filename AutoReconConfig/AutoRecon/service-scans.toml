@@ -255,7 +255,13 @@ service-names = [
 
     [[mysql.scan]]
     name = 'hydra-brute-default-mysql'
-    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra_common_pass.txt" mysql://{address} && hydra -l root -P /opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt -e nsr -s 3306 -o "{scandir}/{protocol}_{port}_mysql_hydra_root_top1000.txt" mysql://{address}'
+    command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/mysql-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_mysql_hydra_common_pass.txt" mysql://{address}'
+    
+    [[mysql.scan]]
+    name = 'hydra-brute-root-top1000-mysql'
+    command = 'hydra -l root -P /opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt -e nsr -s 3306 -o "{scandir}/{protocol}_{port}_mysql_hydra_root_top1000.txt" mysql://{address}'
+
+     
 
 [postgres]
 
@@ -265,6 +271,12 @@ service-names = [
     [[postgres.scan]]
     name = 'hydra-brute-default-postgres'
     command = 'hydra -C "/opt/SecLists/Passwords/Default-Credentials/postgres-betterdefaultpasslist.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra_common.txt" {address} postgres && hydra -l postgres -P "/opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra_postgres_top1000.txt" {address} postgres'
+
+    [[postgres.scan]]
+    name = 'hydra-brute-top1000-postgres'
+    command = 'hydra -l postgres -P "/opt/SecLists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt" -e nsr -s {port} -o "{scandir}/{protocol}_{port}_postgres_hydra_postgres_top1000.txt" {address} postgres'
+
+
 
 [nfs]
 
