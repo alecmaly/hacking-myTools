@@ -15,12 +15,10 @@ def str2bool(v):
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('-s', '--source', required=True)
-parser.add_argument('-d', '--destination', required=True)
 parser.add_argument('-u' , '--urlencode', type=str2bool, nargs='?', const=True, default=False, help="Activate nice mode.")
 args = parser.parse_args()
 
 
-output_file = open(args.destination, 'w') 
 
 counter = 1
 filepath = args.source
@@ -32,15 +30,5 @@ with open(filepath, 'rb') as fp:
             line = urllib.parse.quote(line)
         else:
             line = line.decode('utf-8')
-        output_file.writelines(line + '\n') 
-        counter = counter + 1
-        if counter % 100000 == 0:
-            print(counter, '/', len(lines), str(round(counter/len(lines), 2)*100) + '%')
+        print(line) 
 
-output_file.close() 
-
-
-if args.urlencode:
-    print('Done. Output IS url encoded.')
-else:
-    print('Done. Output IS NOT url encoded')
