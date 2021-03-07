@@ -3,27 +3,27 @@
     [default.nmap-quick]
 
         [default.nmap-quick.service-detection]
-        command = 'nmap {nmap_extra} -F 2>/dev/null {address} |tee _quick_ports'
+        command = 'nmap {nmap_extra} -F 2>/dev/null {address} -Pn 2>/dev/null |tee _quick_ports'
         pattern = '^(?P<port>\d+)\/(?P<protocol>(tcp|udp))(.*)open(\s*)(?P<service>[\w\-\/]+)(\s*)(.*)$'
 
 
     [default.nmap-full-tcp]
 
         [default.nmap-full-tcp.service-detection]
-        command = 'nmap --open -sT -p- {address} 2>/dev/null |grep "/udp\|/tcp"|grep -v "filtered\|closed"| cut -d"/" -f1| tr "\n" "," | sed "s/,$/\n/" >> ports_tcp_tmp && nmap {nmap_extra} -sT -A --osscan-guess --version-all -p $(head -1 ports_tcp_tmp) -oN "{scandir}/_full_tcp_nmap.txt" -oX "{scandir}/xml/_full_tcp_nmap.xml" {address}&& rm ports_tcp_tmp 2>/dev/null'
+        command = 'nmap --open -sT -p- {address} -Pn 2>/dev/null |grep "/udp\|/tcp"|grep -v "filtered\|closed"| cut -d"/" -f1| tr "\n" "," | sed "s/,$/\n/" >> ports_tcp_tmp && nmap {nmap_extra} -sT -A --osscan-guess --version-all -p $(head -1 ports_tcp_tmp) -oN "{scandir}/_full_tcp_nmap.txt" -oX "{scandir}/xml/_full_tcp_nmap.xml" {address}&& rm ports_tcp_tmp 2>/dev/null'
         pattern = '^(?P<port>\d+)\/(?P<protocol>(tcp|udp))(.*)open(\s*)(?P<service>[\w\-\/]+)(\s*)(.*)$'
 
 
     [default.nmap-top-20-udp]
 
         [default.nmap-top-20-udp.service-detection]
-        command = 'nmap --open {nmap_extra} -sU -A --top-ports=20 --version-all -oN "{scandir}/_top_20_udp_nmap.txt" -oX "{scandir}/xml/_top_20_udp_nmap.xml" {address}'
+        command = 'nmap --open {nmap_extra} -Pn -sU -A --top-ports=20 --version-all -oN "{scandir}/_top_20_udp_nmap.txt" -oX "{scandir}/xml/_top_20_udp_nmap.xml" {address}'
         pattern = '^(?P<port>\d+)\/(?P<protocol>(tcp|udp))(.*)open(\s*)(?P<service>[\w\-\/]+)(\s*)(.*)$'
 
     [default.nmap-full-udp]
 
         [default.nmap-full-udp.service-detection]
-        command = 'nmap --open -sU -p- {address} 2>/dev/null |grep "/udp\|/tcp" | cut -d"/" -f1| tr "\n" "," | sed "s/,$/\n/" >> ports_udp_tmp && nmap {nmap_extra} -sU -A --osscan-guess --version-all -p $(head -1 ports_udp_tmp) -oN "{scandir}/_full_udp_nmap.txt" -oX "{scandir}/xml/_full_udp_nmap.xml" {address} && rm ports_udp_tmp 2>/dev/null'
+        command = 'nmap --open -sU -Pn -p- {address} 2>/dev/null |grep "/udp\|/tcp" | cut -d"/" -f1| tr "\n" "," | sed "s/,$/\n/" >> ports_udp_tmp && nmap {nmap_extra} -sU -A --osscan-guess --version-all -p $(head -1 ports_udp_tmp) -oN "{scandir}/_full_udp_nmap.txt" -oX "{scandir}/xml/_full_udp_nmap.xml" {address} && rm ports_udp_tmp 2>/dev/null'
         pattern = '^(?P<port>\d+)\/(?P<protocol>(tcp|udp))(.*)open(\s*)(?P<service>[\w\-\/]+)(\s*)(.*)$'
 
 
