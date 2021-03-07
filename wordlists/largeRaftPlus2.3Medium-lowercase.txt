@@ -1,4 +1,5 @@
 webdav
+trace.axd
 .git-rewrite
 .git/config
 .git/index

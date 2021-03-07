@@ -123,6 +123,10 @@ ignore-service-names = [
     command = 'if hash wkhtmltoimage 2> /dev/null; then wkhtmltoimage --format png {scheme}://{address}:{port}/ {scandir}/{protocol}_{port}_{scheme}_screenshot.png; fi'
 
     [[http.scan]]
+    name = 'nikto'
+    command = 'nikto -ask=no -h {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_nikto.txt"'
+
+    [[http.scan]]
     name = 'whatweb'
     command = 'whatweb --color=never --no-errors -a 3 -v {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_whatweb.txt"'
 
