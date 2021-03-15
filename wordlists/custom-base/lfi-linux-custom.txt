@@ -1,1 +1,1 @@
-/etc/apache2/htaccess
+/etc/apache2/htpasswd

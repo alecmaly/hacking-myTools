@@ -19,7 +19,7 @@ potential_extensions = ['', '.php', '.jsp', '.html', '.htm', '.asp', '.aspx']
 
 results = []
 for extension in potential_extensions:
-    resp = requests.get(url+extension)
+    resp = requests.get(url+extension, verify=False)
     results.append({'extension': extension, 'code':resp.status_code, 'size': len(resp.text)})
 
 # print(mode([x['code'] for x in results]))

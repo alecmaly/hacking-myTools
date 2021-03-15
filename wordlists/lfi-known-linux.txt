@@ -1,4 +1,4 @@
-/etc/apache2/htaccess
+/etc/apache2/htpasswd
 /apache2/logs/access.log
 /apache2/logs/error.log
 /apache/conf/httpd.conf
