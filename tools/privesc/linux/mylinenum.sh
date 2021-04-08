@@ -109,12 +109,12 @@ cat cat /etc/sudoers 2>/dev/null | grep -e "^" -e "ALL"
 printf '\n\n'
 
 myprint "[+] .bash_history files"
-find / -name *.bash_history 2>/dev/null
+find / -name *.bash_history 2>/dev/null | head -n 25
 printf '\n\n'
 
 myprint "[+] SUID Binary – so injection"
 myprint "look for non-errors & 'no such file or directory' -- can mkdir and insert the mallicious import"
-find / -type f -perm -04000 2>/dev/null | xargs -I{} sh -c "strace {} 2>&1 | grep -i -E 'open|access|no such file' | cut -d'\"' -f2 | sed 's|\(.*\)/.*|\1|'"|sort|uniq | xargs -I{} sh -c 'find {} -prune -type d -writable 2>/dev/null'
+find / -type f -perm -04000 2>/dev/null | xargs -I{} sh -c "strace {} 2>&1 | grep -i -E 'open|access|no such file' | cut -d'\"' -f2 | sed 's|\(.*\)/.*|\1|'"|sort|uniq | xargs -I{} sh -c 'find {} -prune -type d -writable 2>/dev/null' | head -n 25
 printf '\n\n'
 
 myprint "[+] Shared Library"
@@ -130,11 +130,11 @@ printf '\n\n'
 
 
 myprint "[+] writable .service files"
-find / -name *.service -writable 2>/dev/null| xargs -L1 -I{} sh -c "echo {}; cat {} 2>/dev/null | grep Exec --color=always"
+find / -name *.service -writable 2>/dev/null| xargs -L1 -I{} sh -c "echo {}; cat {} 2>/dev/null | grep Exec --color=always" | head -n 25
 printf '\n\n'
 
 myprint "[+] Writable executables in .service files"
-find / -name *.service -writable 2>/dev/null| xargs -I{} sh -c "cat {} 2>/dev/null | grep -v '#'| grep Exec|cut -d ' ' -f1| cut -d'=' -f2| grep -v 'yes\|true'| sed 's/-\|\+\|://g'| xargs -I{l} sh -c 'find {l} -writable 2>/dev/null'"
+find / -name *.service -writable 2>/dev/null| xargs -I{} sh -c "cat {} 2>/dev/null | grep -v '#'| grep Exec|cut -d ' ' -f1| cut -d'=' -f2| grep -v 'yes\|true'| sed 's/-\|\+\|://g'| xargs -I{l} sh -c 'find {l} -writable 2>/dev/null'" | head -n 25
 printf '\n\n'
 
 # TO DO: Replace /home with /etc/passwd users (users w/ shell)
@@ -143,19 +143,19 @@ ls /home | xargs -I{} sh -c "if [ {} != `whoami` ]; then echo -------- READABLE 
 printf '\n\n'
 
 myprint "[+] World writable files"
-find / -writable ! -user `whoami` -type f ! -path "/proc/*" ! -path "/sys/*" -exec ls -al {} \; 2>/dev/null
+find / -writable ! -user `whoami` -type f ! -path "/proc/*" ! -path "/sys/*" -exec ls -al {} \; 2>/dev/null | head -n 25
 printf '\n\n'
 
 myprint "[+] Can read other user's files"
-find /home -readable ! -user `whoami` ! -user root 2>/dev/null  
+find /home -readable ! -user `whoami` ! -user root 2>/dev/null | head -n 25
 printf '\n\n'
 
 myprint "[+] Readable hidden files"
-find /etc /opt /var /home /root /srv -type f -iname ".*" -readable 2>/dev/null
+find /etc /opt /var /home /root /srv -type f -iname ".*" -readable 2>/dev/null | head -n 25
 printf '\n\n'
 
 myprint "[+] Files modified last 5 min"
-find / -type f -mmin -5 ! -path "/proc/*" ! -path "/sys/*" ! -path "/run/*" ! -path "/dev/*" ! -path "/var/lib/*" 2>/dev/null
+find / -type f -mmin -5 ! -path "/proc/*" ! -path "/sys/*" ! -path "/run/*" ! -path "/dev/*" ! -path "/var/lib/*" 2>/dev/null | head -n 25
 printf '\n\n'
 
 

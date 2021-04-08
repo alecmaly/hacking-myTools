@@ -3,7 +3,18 @@
 function greppass {
 	# perl
   # grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -P "('.*?')|(\".*?\")" | grep pass --color=always | sort -u
-    grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -e "^" -e "'[^']*'" -e '"[^"]*"' | grep pass --color=always | sort -u
+  grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -e "^" -e "'[^']*'" -e '"[^"]*"' | grep pass --color=always | sort -u
+  echo "...DONE..."
+}
+
+function grepb64 {
+  grep -ri -E '^[A-Za-z0-9+_/]{50,1000}$|^[A-Za-z0-9+_/]{50,}{3}=$|^[A-Za-z0-9+_/]{50,}{2}=$' . --color=always 2>/dev/null
+  echo "...DONE..."
+}
+
+function grepb64d {
+  grep -ri -E '^[A-Za-z0-9+_/]{50,1000}$|^[A-Za-z0-9+_/]{50,}{3}=$|^[A-Za-z0-9+_/]{50,}{2}=$' . --color=never 2>/dev/null | xargs -I{} sh -c "echo '{}' | cut -d':' -f2 | base64 -d" | grep -i -e "^" -e pass --color=always
+  echo "...DONE..."
 }
 
 
