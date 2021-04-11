@@ -22,9 +22,12 @@ def ToHexString(s):
 
 def printCmd(sqli):
     if args.payload_wrapper:
-        output = args.payload_wrapper.replace('*', urllib.parse.quote(sqli))
+        output = args.payload_wrapper.replace('*', sqli)
     else:
         output = sqli
+    print(args.encodeUrl)
+    if args.encodeUrl:
+        output = urllib.parse.quote(output)
     print(output)
     pyperclip.copy(output)
 
@@ -40,6 +43,9 @@ parser.add_argument('--columns', '-c', help='columns')
 
 parser.add_argument('--payload_wrapper', '-p', help='Wraps payload in wrapper. Replace \'*\' in string')
 parser.add_argument("--isSingleRowOutput", '-s', type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="wraps payload in GROUP_CONCAT()")
+parser.add_argument("--encodeUrl", '-eu', type=str2bool, nargs='?',
                         const=True, default=False,
                         help="wraps payload in GROUP_CONCAT()")
 

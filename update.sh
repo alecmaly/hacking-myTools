@@ -5,7 +5,7 @@
 
 # build wordlists
 echo [+] updating seclists
-cd /opt/Seclists
+cd /opt/SecLists
 git pull
 
 # LFI

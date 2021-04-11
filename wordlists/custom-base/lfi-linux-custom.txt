@@ -1,1 +1,2 @@
 /etc/apache2/htpasswd
+/etc/knockd.conf

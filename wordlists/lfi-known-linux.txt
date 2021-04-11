@@ -1,4 +1,5 @@
 /etc/apache2/htpasswd
+/etc/knockd.conf
 /apache2/logs/access.log
 /apache2/logs/error.log
 /apache/conf/httpd.conf
