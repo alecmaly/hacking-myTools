@@ -21,13 +21,17 @@ def ToHexString(s):
 
 
 def printCmd(sqli):
+    if args.URLEncodePayload and not args.URLEncodeAll:
+        sqli = urllib.parse.quote(sqli)
+
     if args.payload_wrapper:
         output = args.payload_wrapper.replace('*', sqli)
     else:
         output = sqli
-    print(args.encodeUrl)
-    if args.encodeUrl:
+
+    if args.URLEncodeAll:
         output = urllib.parse.quote(output)
+  
     print(output)
     pyperclip.copy(output)
 
@@ -45,9 +49,12 @@ parser.add_argument('--payload_wrapper', '-p', help='Wraps payload in wrapper. R
 parser.add_argument("--isSingleRowOutput", '-s', type=str2bool, nargs='?',
                         const=True, default=False,
                         help="wraps payload in GROUP_CONCAT()")
-parser.add_argument("--encodeUrl", '-eu', type=str2bool, nargs='?',
+parser.add_argument("--URLEncodeAll", '-ea', type=str2bool, nargs='?',
                         const=True, default=False,
-                        help="wraps payload in GROUP_CONCAT()")
+                        help="URL Encodes entire command")
+parser.add_argument("--URLEncodePayload", '-ep', type=str2bool, nargs='?',
+                        const=True, default=False,
+                        help="URL Encodes Payload")
 
 args = parser.parse_args()
 

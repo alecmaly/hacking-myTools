@@ -522,7 +522,7 @@ service-names = [
 
     [[snmp.scan]]
     name = 'nmap-snmp'
-    command = 'nmap {nmap_extra} -sV -p {port} --script="banner,(snmp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" -oN "{scandir}/{protocol}_{port}_snmp-nmap.txt" -oX "{scandir}/xml/{protocol}_{port}_snmp_nmap.xml" {address}'
+    command = 'nmap {nmap_extra} -sV -p {port} --script="banner,(snmp* or ssl*) and not (brute or broadcast or dos or external or fuzzer)" -oN "{scandir}/{protocol}_{port}_snmp-nmap.txt" -oX "{scandir}/xml/{protocol}_{port}_snmp_nmap.xml" {address} && cat "{scandir}/{protocol}_{port}_snmp-nmap.txt" |grep -B2 Params > "{scandir}/{protocol}_{port}_snmp-nmap_Params.txt"'
 
     [[snmp.scan]]
     name = 'onesixtyone'
