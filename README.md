@@ -6,6 +6,15 @@ Token password: 959e1d079ac13c0dc4d9fa72f1969d7f83113955
 git clone https://alecjmaly@github.com/alecjmaly/hacking-myTools.git && mv hacking-myTools/buffer_overflow/* . && rm -rf hacking-myTools
 ```
 
+#### Install depedency packages
+```bash
+# install shocker
+git clone https://github.com/nccgroup/shocker.git /opt/hacking-myTools/tools/shocker
+# install burpee
+git clone https://github.com/xscorp/Burpee.git /opt/hacking-myTools/tools/Burpee
+git clone https://github.com/xscorp/Burpee.git /opt/hacking-myTools/tools/sqli/Burpee
+```
+
 
 #### to do
 - add https://ohpe.it/juicy-potato/ to windows
