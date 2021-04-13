@@ -116,7 +116,7 @@ ignore-service-names = [
 
     [[http.scan]]
     name = 'shocker-check-cgi-bin'
-    command = 'python2.7 /opt/hacking-myTools/tools/shocker/shocker.py --cgilist /opt/hacking-myTools/tools/shocker/shocker-cgi_list --Host {address} --port {port} $(if [ "{scheme}" = "https" ]; then echo "-s"; fi ) 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_shocker-cgi-check.txt"'
+    command = 'python2.7 /opt/hacking-myTools/tools/shocker/shocker.py --cgilist /opt/hacking-myTools/tools/shocker/shocker-cgi_list --Host {address} --port {port} $(if [ "{scheme}" = "https" ]; then echo "-s"; fi ) 2>/dev/null | tee "{scandir}/{protocol}_{port}_{scheme}_shocker-cgi-check.txt"'
 
     [[http.scan]]
     name = 'wkhtmltoimage'
@@ -132,7 +132,7 @@ ignore-service-names = [
 
     [[http.scan]]
     name = 'endpoints'
-    command = 'python3 /opt/hacking-myTools/tools/find_endpoints.py {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_endpoints.txt"  && cat "{scandir}/{protocol}_{port}_{scheme}_endpoints.txt" | grep -v "\.js" | cut -d" " -f1 | sort | uniq | tee "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100" && python3 /opt/hacking-myTools/tools/extract_comments.py -f "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100" | tee "{scandir}/{protocol}_{port}_{scheme}_comments.vt100" && cat -n "{scandir}/{protocol}_{port}_{scheme}_comments.vt100" | sort -uk2 | sort -n | cut -f2- > "{scandir}/{protocol}_{port}_{scheme}_comments_trimmed.vt100" && rm "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100"'
+    command = 'python3 /opt/hacking-myTools/tools/find_endpoints.py {scheme}://{address}:{port} 2>&1 | tee "{scandir}/{protocol}_{port}_{scheme}_endpoints.txt"  && python3 /opt/hacking-myTools/tools/extract_comments.py -u "{scheme}://{address}:{port}" 2>&1 >> "{scandir}/{protocol}_{port}_{scheme}_comments.vt100" && cat "{scandir}/{protocol}_{port}_{scheme}_endpoints.txt" | grep -v "\.js" | cut -d" " -f1 | sort | uniq | tee "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100" && python3 /opt/hacking-myTools/tools/extract_comments.py -f "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100" >> "{scandir}/{protocol}_{port}_{scheme}_comments.vt100" && cat -n "{scandir}/{protocol}_{port}_{scheme}_comments.vt100" | sort -uk2 | sort -n | cut -f2- > "{scandir}/{protocol}_{port}_{scheme}_comments_trimmed.vt100" && rm "{scandir}/{protocol}_{port}_{scheme}_comments_tmp.vt100"'
     
     [[http.manual]]
     description = '(nikto)'
