@@ -116,7 +116,7 @@ ignore-service-names = [
 
     [[http.scan]]
     name = 'shocker-check-cgi-bin'
-    command = 'python2.7 /opt/hacking-myTools/tools/shocker/shocker.py --cgilist /opt/hacking-myTools/tools/shocker/shocker-cgi_list --Host {address} --port {port} $(if [ "{scheme}" = "https" ]; then echo "-s"; fi ) 2>/dev/null | tee "{scandir}/{protocol}_{port}_{scheme}_shocker-cgi-check.txt"'
+    command = 'python2.7 /opt/hacking-myTools/tools/shellshock/shocker_checker.py --cgilist /opt/hacking-myTools/tools/shellshock/shocker-cgi_list --Host {address} --port {port} $(if [ "{scheme}" = "https" ]; then echo "-s"; fi ) 2>/dev/null | tee "{scandir}/{protocol}_{port}_{scheme}_shocker-cgi-check.txt"'
 
     [[http.scan]]
     name = 'wkhtmltoimage'
