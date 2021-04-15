@@ -1,5 +1,29 @@
 #!/bin/bash
 
+
+
+function finddate {
+  
+  if [ "$#" != 4 ]; then
+    echo "Invalid number of parameters"
+    echo "Usage: finddate <target_file> <-start_date> <+end_date> <search_dir>"
+    echo
+    echo "Example (finds files with modified date 3 days before to 5 days after modified date of /tmp/test.txt in '.' directory):"
+    echo "finddate /tmp/test.txt 3 5  ."
+    return
+  fi
+
+
+  modified_date=$(date -r "$1" '+%Y-%m-%d')
+  start_date=$(date -d "$modified_date -$2 days" ''+%Y-%m-%d'')
+  end_date=$(date -d "$modified_date +$3 days" ''+%Y-%m-%d'')
+
+  echo $modified_date
+  echo $start_date
+  echo $end_date
+  find "$4" -newermt "$start_date" -type f 2>/dev/null
+}
+
 function greppass {
 	# perl
   # grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -P "('.*?')|(\".*?\")" | grep pass --color=always | sort -u
@@ -199,7 +223,7 @@ function grepdbr {
 mkdir /tmp/grepoutput 2>/dev/null
 
 function mt {
-  printf ">>FUNCTIONS<<\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
+  printf ">>FUNCTIONS<<\n\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
 }
 
 mt
