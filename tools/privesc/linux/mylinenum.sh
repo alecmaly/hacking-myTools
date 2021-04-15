@@ -6,12 +6,12 @@
 
 
 function myprint {
-    red=`tput setaf 1`
-    orange=`tput setaf 3`
-    reset=`tput sgr0`
+    C=$(printf '\033')
+    red="${C}[1;31m"
+    yellow="${C}[1;33m"
+    reset="${C}[0m,"
 
-    echo "${orange}"$1"${reset}"
-    
+    echo "${yellow}"$1"${reset}"
 }
 
 
