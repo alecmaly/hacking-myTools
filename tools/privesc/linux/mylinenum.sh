@@ -36,6 +36,10 @@ myprint "[+] Users with shell"
 cat /etc/passwd | grep "sh$" --color=never | grep "^[^:]*"
 printf '\n\n'
 
+myprint "[+] .htpasswd files"
+find / -name .htpasswd 2>/dev/null | grep -e "^" --color=always 
+printf '\n\n'
+
 myprint "[+] Wriable cron files"
 find /etc/init.d /etc/cron* /etc/crontab /etc/cron.allow /etc/cron.d /etc/cron.deny /etc/cron.daily /etc/cron.hourly /etc/cron.monthly /etc/cron.weekly /etc/sudoers /etc/exports /etc/anacrontab /var/spool/cron /var/spool/cron/crontabs/root -writable 2>/dev/null
 printf '\n\n'
@@ -86,8 +90,8 @@ myprint "[+] Installed compilers"
 printf '\n\n'
 
 myprint "[+] .ssh keys"
-find / -name authorized_keys 2> /dev/null
-find / -name id_rsa 2> /dev/null
+find / -name authorized_keys 2> /dev/null | grep -e "^" --color=always
+find / -name id_rsa 2> /dev/null | grep -e "^" --color=always
 printf '\n\n'
 
 myprint "[+] capabilities"

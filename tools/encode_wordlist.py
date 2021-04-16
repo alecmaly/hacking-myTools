@@ -15,7 +15,8 @@ def str2bool(v):
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('-s', '--source', required=True)
-parser.add_argument('-u' , '--urlencode', type=str2bool, nargs='?', const=True, default=False, help="Activate nice mode.")
+parser.add_argument('-u' , '--urlencode', type=str2bool, nargs='?', const=True, default=False, help="URL Encode wordlist.")
+parser.add_argument('-b' , '--base64encode', type=str2bool, nargs='?', const=True, default=False, help="Base64 encode wordlist.")
 args = parser.parse_args()
 
 
@@ -25,7 +26,9 @@ filepath = args.source
 with open(filepath, 'rb') as fp:
     lines = fp.readlines()
     for line in lines:
-        line = base64.b64encode(line.strip())
+        line = line.strip()
+        if args.base64encode:
+            line = base64.b64encode(line)
         if args.urlencode:
             line = urllib.parse.quote(line)
         else:
