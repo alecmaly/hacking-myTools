@@ -31,6 +31,9 @@ myprint "[+] Interesting Groups"
 id | grep -E "^|wheel|shadow|disk|video|docker|lxd|root|lxc|adm" --color=always
 printf '\n\n'
 
+myprint "[+] printing group files"
+groups | tr ' ' '\n' | xargs -I{} sh -c "echo; echo Looking for files in group: {}; find / -group {} 2>/dev/null | head -n 25" 
+printf '\n\n'
 
 myprint "[+] Users with shell"
 cat /etc/passwd | grep "sh$" --color=never | grep "^[^:]*"
