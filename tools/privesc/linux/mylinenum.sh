@@ -3,7 +3,32 @@
 ### GET FUNCTIONS : greppass / grepdb
 ### add grepdb to output files
 ### 
+C=$(printf '\033')
+RED="${C}[1;31m"
+GREEN="${C}[1;32m"
+Y="${C}[1;33m"
+B="${C}[1;34m"
+LG="${C}[1;37m" #LightGray
+DG="${C}[1;90m" #DarkGray
+NC="${C}[0m"
+UNDERLINED="${C}[5m"
+ITALIC="${C}[3m"
 
+# test if sed supports -E or -r
+E=E
+echo | sed -${E} 's/o/a/' 2>/dev/null
+if [ $? -ne 0 ] ; then
+	echo | sed -r 's/o/a/' 2>/dev/null
+	if [ $? -eq 0 ] ; then
+		E=r
+	else
+		echo "${Y}WARNING: No suitable option found for extended regex with sed. Continuing but the results might be unreliable.${NC}"
+	fi
+fi
+
+echo_not_found (){
+  printf $DG"$1 Not Found\n"$NC
+}
 
 function myprint {
     C=$(printf '\033')
@@ -26,13 +51,16 @@ myprint "[+] hostname"
 hostname
 printf '\n\n'
 
+myprint "[+] Readable files belonging to root and readable by me but not world readable"
+(find / -type f -user root ! -perm -o=r 2>/dev/null | grep -v "\.journal" | while read f; do if [ -r "$f" ]; then ls -l "$f" 2>/dev/null | sed -${E} "s,/.*,${C}[1;31m&${C}[0m,"; fi; done) || echo_not_found
+printf '\n\n'
 
 myprint "[+] Interesting Groups"
 id | grep -E "^|wheel|shadow|disk|video|docker|lxd|root|lxc|adm" --color=always
 printf '\n\n'
 
 myprint "[+] printing group files"
-groups | tr ' ' '\n' | xargs -I{} sh -c "echo; echo Looking for files in group: {}; find / -group {} 2>/dev/null | head -n 25" 
+groups | tr ' ' '\n' | xargs -I{} sh -c "echo; echo Looking for files in group: {}; find / -group {} -type f 2>/dev/null | head -n 25" 
 printf '\n\n'
 
 myprint "[+] Users with shell"
