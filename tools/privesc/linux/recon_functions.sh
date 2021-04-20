@@ -21,10 +21,9 @@ function finddate {
   # echo $modified_date
   # echo $start_date
   # echo $end_date
-
-  # exclude /lib/ and /debconf/ directories
-  find "$4" -newermt "$start_date" ! -newermt "$end_date" -type f -not -path "*/lib/*" -not -path "*/debconf/*" 2>/dev/null
+  find "$4" -newermt "$start_date" ! -newermt "$end_date" -type f -not -path "*/lib/*" -not -path "*/lib32/*" -not -path "*/libx32/*" -not -path "*/debconf/*" -not -path "*/usr/share/*" -not -path "*/var/cache/*" -not -path "*/etc/*" -not -path "*/usr/bin/*" -not -path "*/usr/include/*" -not -path "*/boot/*" -not -path "*/sbin/*" 2>/dev/null
 }
+
 
 function greppass {
 	# perl
