@@ -18,10 +18,12 @@ function finddate {
   start_date=$(date -d "$modified_date -$2 days" ''+%Y-%m-%d'')
   end_date=$(date -d "$modified_date +$3 days" ''+%Y-%m-%d'')
 
-  echo $modified_date
-  echo $start_date
-  echo $end_date
-  find "$4" -newermt "$start_date" -type f 2>/dev/null
+  # echo $modified_date
+  # echo $start_date
+  # echo $end_date
+
+  # exclude /lib/ and /debconf/ directories
+  find "$4" -newermt "$start_date" ! -newermt "$end_date" -type f -not -path "*/lib/*" -not -path "*/debconf/*" 2>/dev/null
 }
 
 function greppass {
