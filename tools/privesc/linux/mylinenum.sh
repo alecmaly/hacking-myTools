@@ -85,8 +85,8 @@ myprint "Possible Crons:"; cat /etc/init.d /etc/cron* /etc/at* /etc/sudoers /etc
 printf '\n\n'
 
 myprint "[+] Interesting File Locations"
-ls /opt /tmp /var/www /home /srv
-printf '\n\n'
+ls /opt /tmp /var/www /home /srv /usr/local/bin
+printf '\n\n' 
 
 myprint "[+] passwd files"
 cat /etc/passwd /etc/shadow /etc/master /var/log/auth.log
