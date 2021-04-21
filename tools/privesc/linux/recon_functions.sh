@@ -211,12 +211,15 @@ mgrep -sr "[sS][qQ][lL]" -n 10 -mr '"'"'0.0.0.0.*\n.*\n\|localhost.*\n.*\n\|127.
 function grepdb {
   ## grepdb: sql followed by host
   mgrep -sr "[sS][qQ][lL]" -n 10 -mr '0.0.0.0.*\n.*\n.*\|localhost.*\n.*\n.*\|127.0.0.1.*\n.*\n.*' -gc 'sql\|localhost\|127.0.0.1\|0.0.0.0' -xd "node_modules" # -xh
+  # mongo connection string
+  # mgrep -sr "[mM][oO][nN][gG][oO]" -n 10 -mr '0.0.0.0.*\n.*\n.*\|localhost.*\n.*\n.*\|127.0.0.1.*\n.*\n.*' -gc 'mongo\|localhost\|127.0.0.1\|0.0.0.0' -xd "node_modules" # -xh
+  grep -ir "mongodb://.*\(localhost\|0.0.0.0\|127.0.0.1\)" . --color=always | grep -v node_modules
 }
 
 
 function grepdbr {
   ## grepdb: host followed by sql
-  mgrep -sr '0.0.0.0\|localhost\|127.0.0.1' -n 10 -mr "[sS][qQ][lL]" -gc 'qsql\|localhost\|127.0.0.1\|0.0.0.0' -xd "node_modules" # -xh
+  mgrep -sr '0.0.0.0\|localhost\|127.0.0.1' -n 10 -mr "[sS][qQ][lL]" -gc 'sql\|localhost\|127.0.0.1\|0.0.0.0' -xd "node_modules" # -xh
 }
 
 
