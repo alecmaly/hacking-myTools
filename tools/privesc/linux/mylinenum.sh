@@ -40,6 +40,7 @@ function myprint {
 }
 
 
+
 myprint "[+] SUID Binaries"
 myprint "cmd:  find / -perm -4000 2>/dev/null"
 echo
@@ -50,6 +51,31 @@ printf '\n\n'
 myprint "[+] hostname"
 hostname
 printf '\n\n'
+
+
+
+#-- UI) Sudo tokens
+myprint "[+] Checking sudo tokens"
+ptrace_scope="`cat /proc/sys/kernel/yama/ptrace_scope 2>/dev/null`"
+
+
+if [ "$ptrace_scope" ] && [ "$ptrace_scope" -eq 0 ]; then echo "/proc/sys/kernel/yama/ptrace_scope is enabled (0)" | sed "s,0,${C}[1;31m&${C}[0m,g";
+else echo "/proc/sys/kernel/yama/ptrace_scope is not enabled ($ptrace_scope)" | sed "s,is not enabled,${C}[1;32m&${C}[0m,g";
+fi
+
+
+if [ "$ptrace_scope" ] && [ "$ptrace_scope" -eq 0 ] && [ "$is_gdb" ]; then
+  echo "Check for sudo tokens in other shells owned by current user"
+  printf $B"[i] "$Y"https://book.hacktricks.xyz/linux-unix/privilege-escalation#reusing-sudo-tokens\n"$NC
+
+  is_gdb="`command -v gdb 2>/dev/null`"
+  if [ "$is_gdb" ]; then echo "gdb was found in PATH" | sed -${E} "s,.*,${C}[1;31m&${C}[0m,g";
+  else echo "gdb wasn't found in PATH, try transfering it." | sed "s,gdb,${C}[1;32m&${C}[0m,g";
+  fi
+
+  echo "Try this: https://github.com/nongiach/sudo_inject" | grep -e "^.*" --color=always
+fi
+
 
 myprint "[+] Readable files belonging to root and readable by me but not world readable"
 (find / -type f -user root ! -perm -o=r 2>/dev/null | grep -v "\.journal" | while read f; do if [ -r "$f" ]; then ls -l "$f" 2>/dev/null | sed -${E} "s,/.*,${C}[1;31m&${C}[0m,"; fi; done) || echo_not_found
