@@ -48,6 +48,12 @@ find / -perm -4000 2>/dev/null
 printf '\n\n'
 
 
+myprint "[+] Vulnerable software installed"
+printf "${RED}Copy/paste below command on attacker machine${reset}\n"
+echo 'printf "'$(apt list --upgradeable 2>/dev/null | sed 's#/.*from: #   #g' | tr -d "]" | sed ':a;N;$!ba;s/\n/\\n/g' | sed ':a;N;$!ba;s/\n/\\n/g')'" | xargs -I{} sh -c "echo; printf \"SEARCHING: {}\n\"; searchsploit \$(echo {} | cut -d\" \" -f1)" | grep -v "No Results"'
+printf '\n\n'
+
+
 myprint "[+] hostname"
 hostname
 printf '\n\n'
