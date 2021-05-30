@@ -40,6 +40,11 @@ function myprint {
 }
 
 
+myprint "[+] OS Info"
+uname -a 
+printf '\n'
+lsb_release -a 2>/dev/null
+printf '\n\n'
 
 myprint "[+] SUID Binaries"
 myprint "cmd:  find / -perm -4000 2>/dev/null"
@@ -83,9 +88,17 @@ if [ "$ptrace_scope" ] && [ "$ptrace_scope" -eq 0 ] && [ "$is_gdb" ]; then
 fi
 
 
+
 myprint "[+] Readable files belonging to root and readable by me but not world readable"
 (find / -type f -user root ! -perm -o=r 2>/dev/null | grep -v "\.journal" | while read f; do if [ -r "$f" ]; then ls -l "$f" 2>/dev/null | sed -${E} "s,/.*,${C}[1;31m&${C}[0m,"; fi; done) || echo_not_found
 printf '\n\n'
+
+
+
+myprint "[+] Files in \$HOME but owned by other user"
+find $HOME ! -user `whoami` 2>/dev/null
+printf '\n\n'
+
 
 myprint "[+] Interesting Groups"
 id | grep -E "^|wheel|shadow|disk|video|docker|lxd|root|lxc|adm" --color=always
@@ -225,6 +238,20 @@ myprint "[+] Files modified last 5 min"
 find / -type f -mmin -5 ! -path "/proc/*" ! -path "/sys/*" ! -path "/run/*" ! -path "/dev/*" ! -path "/var/lib/*" 2>/dev/null | head -n 25
 printf '\n\n'
 
+
+
+myprint "[+] Possibly custom binaries"
+# using dkpg
+if [ ! -z $(which "dpkg" 2>/dev/null) ]; then 
+    find / -type f -executable -exec file -i '{}' \; 2>/dev/null | grep -v "/snap/" | grep "charset=binary" | grep "x-.*sharedlib\|x-.*executable"  | grep -v "\.so" | cut -d':' -f1 | xargs -I{} sh -c "echo {}; dpkg -S {}; echo" | grep -B1 -A1 "no path found"
+fi
+# using rpm
+if [ ! -z $(which rpm 2>/dev/null) ]; then
+    # rpm
+    # find all executables, except .so files
+    find / -type f -executable -exec file -i '{}' \; 2>/dev/null | grep "charset=binary" | grep "x-.*sharedlib\|x-.*executable"  | grep -v "\.so" | cut -d':' -f1 | xargs -I{} sh -c "echo {}; ls -la {}; rpm -q --whatprovides {}; echo" | grep -B2 -A1 "not owned" --color=always
+fi
+printf '\n\n'
 
 
 
