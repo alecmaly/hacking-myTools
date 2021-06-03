@@ -1,6 +1,13 @@
 #!/bin/bash
 
+function findConfigFiles() {
+  printf "\n\n[+] possible config files" | grep ".*" --color=always
+  find . -type f -iname "*conf*" -or -iname "*setting*" 2>/dev/null
 
+  printf "\n\n[+] possible config directories"| grep ".*" --color=always
+  find . -type d -iname "*conf*" -or -iname "*setting*" 2>/dev/null
+
+}
 
 function finddate {
   
@@ -28,7 +35,7 @@ function finddate {
 function greppass {
 	# perl
   # grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -P "('.*?')|(\".*?\")" | grep pass --color=always | sort -u
-  grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -e "^" -e "'[^']*'" -e '"[^"]*"' | grep pass --color=always | sort -u
+  grep -ri -e "pass" . --exclude-dir=lib --exclude-dir=debconf 2>/dev/null |cut -c -500 | GREP_COLOR="01;36" grep --color=always -e "^" -e "'[^']*'" -e '"[^"]*"' | grep -i pass --color=always | sort -u
   echo "...DONE..."
 }
 
@@ -43,7 +50,7 @@ function grepb64d {
 }
 
 function grepb64d2 {
-  grep -orI -E '[A-Za-z0-9+/]{4}{2,}([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)' . --color=never 2>/dev/null | cut -c -500 | xargs -P 4 -I{} sh -c 'filename=`echo "{}" | cut -d":" -f1`;decoded=`echo "{}" | cut -d":" -f2 | base64 -d 2>/dev/null`; printf "$filename -- $decoded\n" 2>/dev/null | grep -v "[^[:print:]]" | grep -v "Binary file" | grep -e "^" -e "pass" --color=always'   
+  grep -orI -E '[A-Za-z0-9+/]{4}{2,}([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)' . --color=never 2>/dev/null | cut -c -500 | xargs -P 4 -I{} sh -c 'filename=`echo "{}" | cut -d":" -f1`;decoded=`echo "{}" | cut -d":" -f2 | base64 -d 2>/dev/null`; printf "$filename -- $decoded\n" 2>/dev/null | grep -v "[^[:print:]]" | grep -v "Binary file" | grep -i -e "^" -e "pass" --color=always'   
 }
 
 
@@ -227,7 +234,7 @@ function grepdbr {
 mkdir /tmp/grepoutput 2>/dev/null
 
 function mt {
-  printf ">>FUNCTIONS<<\n\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
+  printf ">>FUNCTIONS<<\n\nfindConfigFiles\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
 }
 
 mt
