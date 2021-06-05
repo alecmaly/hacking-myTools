@@ -26,9 +26,22 @@ for extension in potential_extensions:
 mode_code = mode([x['code'] for x in results])
 mode_size = mode([x['size'] for x in results])
 
+
 extensions = [x['extension'] for x in results if (x['code'] != mode_code or x['size'] != mode_size) and x['code'] == 200 ]
 
+# add .txt
 extensions.append('.txt')
+
+# if iis, add .asp and .aspx headers
+resp = requests.get(url, verify=False)
+if 'microsoft' in resp.headers['server'].lower() and 'iis' in resp.headers['server'].lower():
+    extensions.append('.asp')
+    extensions.append('.aspx')
+
+
+
+# remove duplicates
+extensions = list(set(extensions))
 
 
 print(','.join(extensions), end='')
