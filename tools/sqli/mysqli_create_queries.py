@@ -67,6 +67,14 @@ if not args.dbs:
         Microsoft, MySQL	SELECT @@version
         Oracle	SELECT * FROM v$version
         PostgreSQL	SELECT version()
+
+
+Paylods to try:
+' -- -
+') -- -
+','') -- -
+
+' OR 1=1 -- -
     """)
     exit
 
