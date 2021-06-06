@@ -34,7 +34,7 @@ extensions.append('.txt')
 
 # if iis, add .asp and .aspx headers
 resp = requests.get(url, verify=False)
-if 'microsoft' in resp.headers['server'].lower() and 'iis' in resp.headers['server'].lower():
+if 'server' in resp.headers and 'microsoft' in resp.headers['server'].lower() and 'iis' in resp.headers['server'].lower():
     extensions.append('.asp')
     extensions.append('.aspx')
 
