@@ -64,7 +64,6 @@ hostname
 printf '\n\n'
 
 
-
 #-- UI) Sudo tokens
 myprint "[+] Checking sudo tokens"
 ptrace_scope="`cat /proc/sys/kernel/yama/ptrace_scope 2>/dev/null`"
@@ -93,6 +92,10 @@ myprint "[+] Readable files belonging to root and readable by me but not world r
 (find / -type f -user root ! -perm -o=r 2>/dev/null | grep -v "\.journal" | while read f; do if [ -r "$f" ]; then ls -l "$f" 2>/dev/null | sed -${E} "s,/.*,${C}[1;31m&${C}[0m,"; fi; done) || echo_not_found
 printf '\n\n'
 
+
+myprint "[+] Hidden files owned by curent user: $(whoami)"
+find / -name ".*" -user `whoami` 2>/dev/null
+printf '\n\n'
 
 
 myprint "[+] Files in \$HOME but owned by other user"

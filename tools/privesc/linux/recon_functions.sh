@@ -9,6 +9,17 @@ function findConfigFiles() {
 
 }
 
+function findHiddenFiles {
+    if [ ! -z "$1" ]; then
+      dir="$1"
+    else
+      dir="."
+    fi
+     
+    printf "[+] hidden files/folders in $dir"
+    find "$dir" -name ".*" 2>/dev/null
+}
+
 function finddate {
   
   if [ "$#" != 4 ]; then
@@ -234,7 +245,7 @@ function grepdbr {
 mkdir /tmp/grepoutput 2>/dev/null
 
 function mt {
-  printf ">>FUNCTIONS<<\n\nfindConfigFiles\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
+  printf ">>FUNCTIONS<<\n\nfindHiddenFiles .\nfindConfigFiles\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
 }
 
 mt
