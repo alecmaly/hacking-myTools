@@ -108194,6 +108194,7 @@ zzzindex
 .well-known/nodeinfo
 .well-known/oauth-authorization-server
 .well-known/openid-configuration
+.well-known/openid-federation
 .well-known/openorg
 .well-known/openpgpkey
 .well-known/pki-validation
@@ -108354,6 +108355,7 @@ ServerAdministrator
 Services
 Servlet
 Servlets
+Shibboleth.sso/Metadata
 SiteMap
 SiteScope
 SiteServer
@@ -108548,6 +108550,7 @@ externalization
 ezshopper
 ezsqliteadmin
 favicon.ico
+federation/clients
 folder_new
 forcedownload
 formsend
@@ -108618,6 +108621,7 @@ jsp2
 jsr
 jsso
 jsx
+jwks.json
 kboard
 kept
 known_hosts
@@ -108673,6 +108677,9 @@ nobody
 notified
 novell
 oa_servlets
+oauth/authorize
+oauth/token
+oauth/token/info
 obdc
 obsoleted
 ogl
@@ -108757,6 +108764,7 @@ rwservlet
 scratc
 scriptlet
 scriptlets
+security.txt
 sensepost
 sensor
 server_admin_small
@@ -108810,6 +108818,8 @@ test_db
 thumbs.db
 tmps
 todel
+token/introspect
+token/revoke
 transformations
 uddi
 unpaid
