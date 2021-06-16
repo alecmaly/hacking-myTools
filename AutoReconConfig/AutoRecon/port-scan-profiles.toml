@@ -17,7 +17,7 @@
     [default.nmap-top-20-udp]
 
         [default.nmap-top-20-udp.service-detection]
-        command = 'nmap --open -T2 {nmap_extra} -Pn -sU -A --top-ports=20 --version-all -oN "{scandir}/_top_20_udp_nmap.txt" -oX "{scandir}/xml/_top_20_udp_nmap.xml" {address}'
+        command = 'bash /opt/hacking-myTools/tools/tftp_snmp_scan.sh {address} > "_tftp_snmp_VULN_udp_nmap.vt100" && nmap {nmap_extra} --open -Pn -sU -T2 -p 69,161,162,10161,10162 {address} -oN "_top_KNOWN_VULN_udp_nmap.txt" && nmap --open -T2 {nmap_extra} -Pn -sU -A --top-ports=20 --version-all -oN "{scandir}/_top_20_udp_nmap.txt" -oX "{scandir}/xml/_top_20_udp_nmap.xml" {address}'
         pattern = '^(?P<port>\d+)\/(?P<protocol>(tcp|udp))(.*)open(\s*)(?P<service>[\w\-\/]+)(\s*)(.*)$'
 
     [default.nmap-full-udp]

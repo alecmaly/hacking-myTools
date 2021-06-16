@@ -46,6 +46,12 @@ printf '\n'
 lsb_release -a 2>/dev/null
 printf '\n\n'
 
+
+myprint "[+] sudo -l (no password) (also check /etc/sudoers & /etc/sudoers.d)"
+echo '' | sudo -S -l 
+printf '\n\n'
+
+
 myprint "[+] SUID Binaries"
 myprint "cmd:  find / -perm -4000 2>/dev/null"
 echo

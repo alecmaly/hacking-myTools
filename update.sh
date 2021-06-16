@@ -8,11 +8,13 @@ echo [+] updating seclists
 cd /opt/SecLists
 git pull
 
-# LFI
-echo [+] building LFI wordlist
+# LFI (windows + linux)
+echo [+] building LFI wordlists
 wlk /opt/hacking-myTools/wordlists/custom-base/lfi-linux-custom.txt /opt/hacking-myTools/wordlists/custom-base/lfi-linux-hacktricks.txt  /opt/SecLists/Fuzzing/LFI/LFI-gracefulsecurity-linux.txt > /opt/hacking-myTools/wordlists/lfi-known-linux.txt
 wlk /opt/hacking-myTools/wordlists/custom-base/lfi-windows-custom.txt /opt/SecLists/Fuzzing/LFI/LFI-gracefulsecurity-windows.txt > /opt/hacking-myTools/wordlists/lfi-known-windows.txt
 
+echo [+] building snmp common community strings wordlist
+wlk /opt/SecLists/Discovery/SNMP/common-snmp-community-strings.txt /opt/SecLists/Discovery/SNMP/common-snmp-community-strings-onesixtyone.txt /usr/share/doc/onesixtyone/dict.txt > /opt/hacking-myTools/wordlists/snmp_comm_strings.txt
 
 # Directory Fuzzing
 echo [+] building largeRaftPlus2.3Medium-lowercase.txt wordlist
