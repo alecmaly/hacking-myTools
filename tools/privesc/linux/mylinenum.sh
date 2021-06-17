@@ -41,9 +41,14 @@ function myprint {
 
 
 myprint "[+] OS Info"
+myprint "- uname -a"
 uname -a 
 printf '\n'
+myprint "- lsb_release -a Info"
 lsb_release -a 2>/dev/null
+printf '\n'
+myprint "- cat /etc/os-release"
+cat /etc/os-release
 printf '\n\n'
 
 
