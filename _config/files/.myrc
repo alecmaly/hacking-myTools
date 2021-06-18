@@ -443,7 +443,7 @@ mtInitialWindows () {
   printf "mkdir output 2>nul\n"
   echo -e "start /B winPEASany.exe > .\output\winpeas.txt"
   echo -e "start /B Seatbelt.exe -group=all > .\output\seatbelt.txt"
-  echo -e "start /B mywinenum.bat C:/users/public/downloads/mywinenum.txt"
+  echo -e "start /B mywinenum.bat > C:/users/public/downloads/mywinenum.txt"
   echo -e "start /B pspy.exe C:/users/public/downloads/pspyoutput.txt"
   echo -e "echo Invoke-AllChecks >> PowerUp.ps1"
   echo -e "powershell.exe -ep bypass .\PowerUp.ps1 > .\output\PowerUp.txt"
@@ -457,7 +457,7 @@ mtInitialWindows () {
   printf "mkdir output\n"
   echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/winPEASany.exe" > "$path/output/winpeas.txt" } -argumentlist (get-location).path'
   echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/Seatbelt.exe" "-group=all" > "$path/output/seatbelt.txt" } -argumentlist (get-location).path'
-  echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/mywinenum.bat" "$path/output/mywinenum.txt" } -argumentlist (get-location).path'
+  echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/mywinenum.bat" > "$path/output/mywinenum.txt" } -argumentlist (get-location).path'
   echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/pspy.exe" "$path/output/pspyoutput.txt" } -argumentlist (get-location).path'
   echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/PowerUp.ps1"; Invoke-AllChecks > "$path/output/powerup.txt" } -argumentlist (get-location).path'
   echo -e 'start-job -scriptblock { Param ([string] $path); ."$path/jaws-enum.ps1" > "$path/output/jaws-enum.txt" } -argumentlist (get-location).path'
