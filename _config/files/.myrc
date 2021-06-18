@@ -250,8 +250,8 @@ mt () {
   echo
   echo ">>>> Linux <<<<"
 	echo "mtInitialLinux"
-  echo "mylinenum"
   echo "cat /opt/hacking-myTools/tools/privesc/linux/recon_functions.sh | clip"
+  echo "mylinenum"
 
   echo
   echo ">>>> Windows <<<<"
@@ -274,6 +274,10 @@ mt () {
   echo "tohex <string>"
   echo "catmc | grep ffuf"
   echo "catc"
+  echo "mtssh # create ssh key"
+  echo "hex2bin"
+  echo "bin2hex"
+  
 }
 
 mtInitialLinux () {
@@ -549,6 +553,22 @@ function mtssh {
 }
 
 
+function hex2bin {
+  if [[ -z $1 ]]; then
+    echo "Usage: hex2bin <file.bin>"
+    return
+  fi
+  echo "$(cat "$1")" | xxd -r -p
+}
+
+function bin2hex {
+  if [[ -z $1 ]]; then
+    echo "Usage: bin2hex <binary>"
+    return
+  fi
+  
+  hexdump -v -e '1/1 "%02x"' "$1"
+}
 
 alias searchsploit=/opt/exploitdb/searchsploit
 alias fuffe="python3 /opt/hacking-myTools/tools/test_endpoint_ffuf.py"
