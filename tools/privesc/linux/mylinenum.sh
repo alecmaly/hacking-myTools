@@ -144,7 +144,7 @@ myprint "Possible Crons:"; cat /etc/init.d /etc/cron* /etc/at* /etc/sudoers /etc
 printf '\n\n'
 
 myprint "[+] Interesting File Locations"
-ls /opt /tmp /var/www /home /srv /usr/local/bin
+ls /opt /tmp /var/www /home /srv /mnt /usr/local/bin 
 printf '\n\n' 
 
 myprint "[+] passwd files"
@@ -168,6 +168,10 @@ printf '\n\n'
 
 myprint "[+] Mounts/drives"
 df -h
+printf '\n\n'
+
+myprint "[+] Unmounted File Systems"
+cat /etc/fstab 2>/dev/null
 printf '\n\n'
  
 
