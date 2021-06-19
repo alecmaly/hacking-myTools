@@ -9,3 +9,27 @@ function grepdb () {
     $regex = '(.*(sql|mongo)(.|\n)*(localhost|127.0.0.1|0.0.0.0).*)|(.*(localhost|127.0.0.1|0.0.0.0)(.|\n)*(sql|mongo).*)'; get-childitem -depth 5 |% { $tmp = $_.FullName; get-content $_.FullName -Raw -erroraction 'silentlycontinue'} | select-string -pattern $regex -AllMatches | % {$_.Matches} | % {write-host "`n`n" $tmp "`n" $_.Value}
 
 }
+
+
+function grepADS () {
+    Get-ChildItem -recurse -Path . | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-5) }
+}
+
+
+function findLastModified() {
+    Param( $minutes )
+    Get-ChildItem -recurse -Path . | ? { $_.LastWriteTime -gt (Get-Date).AddMinutes(-$minutes) }    
+}
+
+function grepADS () {
+    cmd /c dir /S /r | findstr /C:":`$DATA" /C:"Directory of"
+}
+
+function mt () {
+    write-host ">> FUNCTIONS <<"
+    write-host "greppass"
+    write-host "grepdb"
+    write-host "grepADS  # alternative data stream"
+    write-host "findLastModified -minutes 5"
+
+}
