@@ -22,7 +22,9 @@ function findLastModified() {
 }
 
 function grepADS () {
-    cmd /c dir /S /r | findstr /C:":`$DATA" /C:"Directory of"
+    # cmd /c dir /S /r | findstr /C:":`$DATA" /C:"Directory of" | select-string -Pattern "Directory of.*\n"
+    # powershell.exe -c "Get-ChildItem -Recurse | ForEach-Object { Get-Item $_.FullName -Stream * } | Where-Object Stream -ne ':$Data' | Select-Object FileName,Stream"
+    Get-ChildItem -Recurse | ForEach-Object { Get-Item $_.FullName -Stream * } | Where-Object Stream -ne ':$Data' | Select-Object FileName,Stream
 }
 
 function mt () {
