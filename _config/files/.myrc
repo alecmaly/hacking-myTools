@@ -576,3 +576,7 @@ alias qscan="masscan -p1-65535,U:1-65535 $1 --rate=1000"
 
 alias msf-help='ls /usr/share/metasploit-framework/tools/exploit'
 alias code='/snap/bin/code --no-sandbox'
+
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin

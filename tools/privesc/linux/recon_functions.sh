@@ -119,27 +119,32 @@ function mgrep {
       shift
       ;;
       -xd|--exclude-directories)
-      DIRS=($(printf $2 | tr ',' ' '))
-      printf "${DIRS[@]}"
-      pos=$(( ${#DIRS[*]} - 1 ))
-      LAST=${DIRS[$pos]} 
-      
-      EXCLUDE_DIRECTORIES=( \( )
-      for i in $(echo $2 | sed "s/,/ /g")
-      do
-          if [ $i == $LAST ]; then
-            break
-          fi
+      if [ -n "$ZSH_VERSION" ]; then
+        echo '[!] zsh detected, IGNORING Exclude_Directories'
+      else 
+        DIRS=($(printf $2 | tr ',' ' '))
+        printf "${DIRS[@]}"
+        pos=$(( ${#DIRS[*]} - 1 ))
+        LAST=${DIRS[$pos]} 
+        
+        EXCLUDE_DIRECTORIES=( \( )
+        for i in $(echo $2 | sed "s/,/ /g")
+        do
+            if [ $i == $LAST ]; then
+              break
+            fi
 
-          # call your procedure/other scripts here below
-          EXCLUDE_DIRECTORIES+=(-path "*/$i/*" -o )
-      done
-      
-      EXCLUDE_DIRECTORIES+=(-path "*/$LAST/*" \) -prune -false -o )
+            # call your procedure/other scripts here below
+            EXCLUDE_DIRECTORIES+=(-path "*/$i/*" -o )
+        done
+        
+        EXCLUDE_DIRECTORIES+=(-path "*/$LAST/*" \) -prune -false -o )
 
-      echo "${EXCLUDE_DIRECTORIES[@]}"
+        echo "${EXCLUDE_DIRECTORIES[@]}"
 
-      # \( -path "*/SharePoint-JSON-Helper/*" -o -path "*/hacking-myTools/*" \) -prune -o
+        # \( -path "*/SharePoint-JSON-Helper/*" -o -path "*/hacking-myTools/*" \) -prune -o
+  
+      fi
       shift
       shift
       ;;
