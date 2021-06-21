@@ -50,6 +50,19 @@ function greppass {
   echo "...DONE..."
 }
 
+
+function grepusers () {
+    # echo [!] EXCLUDES ROOT
+
+    # for each user with shell
+    # grep in current directory
+    # may display creds, best used in logs or /var/www/html directories
+
+
+    cat /etc/passwd | grep "sh$" | cut -d':' -f1 | grep -v "^root$" | xargs -I{} sh -c "printf '\033[1;33mGREPPING USER: {}\033[0m\n'; grep -riI '{}' . 2>/dev/null"
+}
+
+
 function grepb64 {
   grep -ri -E '^[A-Za-z0-9+_/]{50,1000}$|^[A-Za-z0-9+_/]{50,}{3}=$|^[A-Za-z0-9+_/]{50,}{2}=$' . --color=always 2>/dev/null
   echo "...DONE..."
@@ -209,6 +222,10 @@ mgrep -sr "[sS][qQ][lL]" -n 10 -mr '"'"'0.0.0.0.*\n.*\n\|localhost.*\n.*\n\|127.
   red=`tput setaf 1`
   orange=`tput setaf 3`
   reset=`tput sgr0`
+  
+
+
+
 
   # find . -type f -not -path '*/\.*' -readable -exec grep -i $GREP_REGEX '{}' -s -l -I \; 2>/dev/null  | xargs -n 1 -P 8 -L1 -I{} sh -c 'echo; echo "'"$green"'EVALUATING: {}'"$reset"'"; sed -n "/'"$START_REGEX"'/{:start /'"$LINE_ESCAPES"'\|'"$MATCH_REGEX"'/!{N;b start};/'"$MATCH_REGEX"'/Ip}" "{}" | cut -c -500 | grep -i -e "^" -e "'"$GREP_COLOR_REGEX"'"  --color=always'
 
@@ -221,7 +238,9 @@ mgrep -sr "[sS][qQ][lL]" -n 10 -mr '"'"'0.0.0.0.*\n.*\n\|localhost.*\n.*\n\|127.
 
   # echo "find ${DIRECTORIES[@]} "${EXCLUDE_DIRECTORIES[@]}" "${EXCLUDE_HIDDEN[@]}" -type f -readable | grep -e "^" -e git"
   ## REAL
-  find ${DIRECTORIES[@]} "${EXCLUDE_DIRECTORIES[@]}" "${EXCLUDE_HIDDEN[@]}" -type f -readable -exec grep -i $START_REGEX '{}' -s -l -I \; 2>/dev/null  | xargs -L1 -I{} sh -c 'tmp=$(sed -n "/'"$START_REGEX"'/{:start /'"$LINE_ESCAPES"'\|'"$MATCH_REGEX"'/!{N;b start};/'"$MATCH_REGEX"'/Ip}" "{}" | cut -c -500 | grep -i -e "^" -e "'"$GREP_COLOR_REGEX"'" --color=always); if [ ! -z "$tmp" ]; then echo; echo "'"$green"'EVALUATING: {}'"$reset"'"; echo "${tmp}" ; fi'
+
+
+  find ${DIRECTORIES[@]} "${EXCLUDE_DIRECTORIES[@]}" "${EXCLUDE_HIDDEN[@]}" -type f -readable -exec grep -i $START_REGEX '{}' -s -l -I \; 2>/dev/null  | xargs -L1 -I{} sh -c 'tmp=$(sed -n "/'"$START_REGEX"'/{:start /'"$LINE_ESCAPES"'\|'"$MATCH_REGEX"'/!{N;b start};/'"$MATCH_REGEX"'/Ip}" "{}" | cut -c -500 | grep -i -e "^" -e "'"$GREP_COLOR_REGEX"'" --color=always); if [ ! -z "$tmp" ]; then echo; echo "'"$orange"'EVALUATING: {}'"$reset"'"; echo "${tmp}" ; fi'
 
 
   printf "\n\n..DONE..\n"
@@ -250,7 +269,7 @@ function grepdbr {
 mkdir /tmp/grepoutput 2>/dev/null
 
 function mt {
-  printf ">>FUNCTIONS<<\n\nfindHiddenFiles .\nfindConfigFiles\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
+  printf ">>FUNCTIONS<<\n\nfindHiddenFiles .\nfindConfigFiles\nfinddate /tmp/target.txt 5 5 .\n\ngreppass > /tmp/grepoutput/greppass &\ngrepusers > /tmp/grepoutput/grepusers &\ngrepdb > /tmp/grepoutput/grepdb &\ngrepdbr > /tmp/grepoutput/grepdbr &\ngrepb64d2 > /tmp/grepoutput/grepb64d2 & # useful\ngrepb64 > /tmp/grepoutput/grepb64 &\ngrepb64d > /tmp/grepoutput/grepb64d &\n"
 }
 
 mt
