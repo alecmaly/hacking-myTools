@@ -50,7 +50,7 @@ def printCmd(prefix, columns, source, suffex):
 parser = argparse.ArgumentParser(description='')
 
 database_group = parser.add_argument_group('Database options')
-database_group.add_argument('--dbs', '-D', help='database type [mysql | mssql | etc...] # todo: oracle, sqlite...')
+database_group.add_argument('--dbs', '-D', help='database type [mysql | mssql | oracle | postgres | etc...] # todo: sqlite...')
 database_group.add_argument('--database', '-d', help='database')
 database_group.add_argument('--table', '-t', help='table')
 database_group.add_argument('--columns', '-c', help='columns')
