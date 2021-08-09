@@ -1,0 +1,174 @@
+<html>
+    <title>
+        My Web Tools
+    </title>
+    <style>
+        pre {
+            background-color: lightgrey;
+            border: 1px solid grey;
+            border-radius: 3px;
+        }
+
+        h3 {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <body>
+        <p id='output_length'>(\n) Length: 0  |  Hex: 0<br>(\r\n) Length: 0  |  Hex: 0</p>
+        
+        <textarea 
+            id='text'
+            placeholder='Enter text here to calculate length. Newlines \n are converted to \r\n' 
+            style='height:500px;width:100%' 
+            onkeyup="update()"></textarea>
+        <input id='padding_zeros' placeholder='hex padding zeros' value=0 onkeyup='update()'>
+
+        <hr>
+        <h3>HTML Encoded</h3>
+        <pre id='output_html_encoded'></pre>
+        <h3>HTML Decoded</h3>
+        <pre id='output_html_decoded'></pre>
+        <hr>
+        <h3>URL Encoded</h3>
+        <pre id='output_url_encoded'></pre>
+        <h3>URL Decoded</h3>
+        <pre id='output_url_decoded'></pre>
+        <hr>
+        <h3>Hex unicode</h3>
+        <pre id='output_hex_unicode'></pre>
+        <h3>Hex unicode (javacsript)</h3>
+        <pre id='output_hex_unicode_javascript'></pre>
+        <h3>Hex \x</h3>
+        <pre id='output_hex_x'></pre>
+        <h3>Hex 0x (mysql)</h3>
+        <pre id='output_hex_0x'></pre>
+        <h3>Octal</h3>
+        <pre id='output_octal'></pre>
+        <h3>Hex decoded</h3>
+        <pre id='output_hex_decoded'></pre>
+
+        <script>    
+            // util functions
+            function copyToClipboard(text) {
+                navigator.clipboard.writeText(text)
+            } 
+            
+            function encode_html(str) {
+                return  str.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+                    return '&#'+i.charCodeAt(0)+';';
+                    });
+            }
+
+            // main function
+            function update() {
+                let text = document.querySelector('#text').value
+                updateLength(text)
+
+                // update encode hrml
+                document.querySelector('#output_html_encoded').innerText = StringtoHTML(text)
+                // update decode html
+                updateDecodeHtml(text)
+
+                // encode uri
+                document.querySelector('#output_url_encoded').innerText = UnicodeToURL(ConvertStringToHexUnicode(text))
+                // decode uri
+                document.querySelector('#output_url_decoded').innerText = decodeURIComponent(text)
+
+                // hex unicode
+                document.querySelector('#output_hex_unicode').innerText = ConvertStringToHexUnicode(text)
+                // hex unicode (javascript)
+                document.querySelector('#output_hex_unicode_javascript').innerText = ConvertStringToHexUnicodeJavaScript(text)
+                // hex \x
+                document.querySelector('#output_hex_x').innerText = UnicodeToHexX(ConvertStringToHexUnicode(text))
+                // hex 0x
+                document.querySelector('#output_hex_0x').innerText = UnicodeToHex0x(ConvertStringToHexUnicode(text))
+                // octal 
+                document.querySelector('#output_octal').innerText = ConvertStringToOctal(text)
+                // hex to string
+                document.querySelector('#output_hex_decoded').innerText = hex_to_ascii(text)
+
+
+            };      
+
+
+            // subroutines
+            function updateLength(text) {
+                let new_length = text.replaceAll('\n', '\r\n').length;
+                document.querySelector('#output_length').innerText = 
+                '(\\n) Length: ' + text.length + '  |  Hex: ' + text.length.toString(16) + '\n' +
+                '(\\r\\n)\t Length: ' + new_length + '  |  Hex: ' + new_length.toString(16) 
+            }
+            
+            function updateDecodeHtml(html) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = html;
+                document.querySelector('#output_html_decoded').innerText = txt.value
+            }
+
+            function ConvertStringToOctal(str) {
+                var arr = [];
+                for (var i = 0; i < str.length; i++) {
+                    arr[i] = (str.charCodeAt(i).toString(8)).slice(-4);
+                }
+                return "\\" + arr.join("\\");
+            }
+
+            function ConvertStringToHexUnicode(str) {
+                let padding = parseInt(document.querySelector('#padding_zeros').value) || 0
+                
+                var arr = [];
+                for (var i = 0; i < str.length; i++) {
+                    arr[i] = "0".repeat(padding) + ("00" + str.charCodeAt(i).toString(16)).slice(-4);
+                }
+                return "\\u" + arr.join("\\u");
+            }
+            
+            function ConvertStringToHexUnicodeJavaScript(str) {
+                let padding = parseInt(document.querySelector('#padding_zeros').value) || 0
+                
+                var arr = [];
+                for (var i = 0; i < str.length; i++) {
+                    arr[i] = "0".repeat(padding) + ("00" + str.charCodeAt(i).toString(16)).slice(-4) + '}';
+                }
+                return "\\u{" + arr.join("\\u{");
+            }
+            
+            function UnicodeToHex0x(str) {
+                return '0x' + str.replaceAll('\\u00', '')
+            }
+
+            function UnicodeToHexX(str) {
+                return str.replaceAll('\\u00', '\\x')
+            }
+
+            function UnicodeToURL(str) {
+                return str.replaceAll('\\u00', '%')
+            }
+
+            function StringtoHTML(str) {
+                var arr = [];
+                for (var i = 0; i < str.length; i++) {
+                    arr[i] = (str.charCodeAt(i).toString(16)).slice(-4);
+                }
+                return "&#x" + arr.join(";&#x") + ';';
+            }
+
+            function hex_to_ascii(str1)
+            {
+                var hex  = str1.toString();
+                var str = '';
+                for (var n = 0; n < hex.length; n += 2) {
+                    str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+                }
+                return str;
+            }
+
+
+            
+        </script>
+    </body>
+
+</html>
