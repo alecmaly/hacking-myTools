@@ -26,6 +26,8 @@
             border: 0;
             margin: 0;
             padding: 0;
+            padding-right: 5px;
+            float: left
         }
     </style>
 
@@ -35,9 +37,9 @@
         <textarea 
             id='text'
             placeholder='Enter text here to calculate length. Newlines \n are converted to \r\n' 
-            style='height:500px;width:100%' 
+            style='height:100px;width:100%' 
             onkeyup="update()"></textarea>
-        <input id='padding_zeros' placeholder='hex padding zeros' value=0 onkeyup='update()'>
+        <label>Padding: </label><input id='padding_zeros' placeholder='hex padding zeros' value=0 onkeyup='update()'>
 
         <hr>
         <h3>HTML Encoded</h3>
@@ -49,6 +51,11 @@
         <pre id='output_url_encoded'></pre>
         <h3>URL Decoded</h3>
         <pre id='output_url_decoded'></pre>
+        <hr>
+        <h3>Base64 Encoded</h3>
+        <pre id='output_base64_encoded'></pre>
+        <h3>Base64 Decoded</h3>
+        <pre id='output_base64_decoded'></pre>
         <hr>
         <h3>Hex unicode</h3>
         <pre id='output_hex_unicode'></pre>
@@ -89,6 +96,11 @@
                 document.querySelector('#output_url_encoded').innerText = UnicodeToURL(ConvertStringToHexUnicode(text))
                 // decode uri
                 document.querySelector('#output_url_decoded').innerText = decodeURIComponent(text)
+
+                // encode base64
+                document.querySelector('#output_base64_encoded').innerText = btoa(text)
+                // decode base64
+                document.querySelector('#output_base64_decoded').innerText = atob(text)
 
                 // hex unicode
                 document.querySelector('#output_hex_unicode').innerText = ConvertStringToHexUnicode(text)
@@ -178,9 +190,32 @@
                 }
                 return str;
             }
+        </script>
+        <script>
+            // add copy buttons
+            Array.from(document.querySelectorAll('h3')).forEach(title => {
+            var button = document.createElement('button')
+            button.textContent = 'copy'
+            button.onclick = (e) => {
+                let text = e.target.nextElementSibling.innerText
+                console.log(text)
+                navigator.clipboard.writeText(text)
+            }
 
+            title.parentElement.insertBefore(button, title.nextElementSibling)
+        })
 
-            
+        // Autoresize textarea
+        const tx = document.getElementsByTagName("textarea");
+        for (let i = 0; i < tx.length; i++) {
+        tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;width:100%");
+        tx[i].addEventListener("input", OnInput, false);
+        }
+
+        function OnInput() {
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+        }
         </script>
     </body>
 
