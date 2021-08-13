@@ -99,34 +99,79 @@
                 updateLength(text)
 
                 // update encode hrml
-                document.querySelector('#output_html_encoded').innerText = StringtoHTML(text)
+                try {
+                    document.querySelector('#output_html_encoded').innerText = StringtoHTML(text)
+                } catch {
+                    document.querySelector('#output_html_encoded').innerText = ''
+                }
                 // update decode html
-                updateDecodeHtml(text)
+                try {
+                    updateDecodeHtml(text)
+                } catch {
+                    document.querySelector('#output_html_decoded').innerText = ''
+                }
 
                 // encode uri
-                document.querySelector('#output_url_encoded').innerText = UnicodeToURL(ConvertStringToHexUnicode(text))
+                try {
+                    document.querySelector('#output_url_encoded').innerText = UnicodeToURL(ConvertStringToHexUnicode(text))
+                } catch {
+                    document.querySelector('#output_url_encoded').innerText = ''
+                }
                 // decode uri
-                document.querySelector('#output_url_decoded').innerText = decodeURIComponent(text)
-
+                try {
+                    document.querySelector('#output_url_decoded').innerText = decodeURIComponent(text)
+                } catch {
+                    document.querySelector('#output_url_decoded').innerText = ''
+                }
                 // encode base64
-                document.querySelector('#output_base64_encoded').innerText = btoa(text)
+                try {
+                    document.querySelector('#output_base64_encoded').innerText = btoa(text)
+                } catch {
+                    document.querySelector('#output_base64_encoded').innerText = ''
+                }
                 // decode base64
-                document.querySelector('#output_base64_decoded').innerText = atob(text)
-
+                try {
+                    document.querySelector('#output_base64_decoded').innerText = atob(text)
+                } catch {
+                    document.querySelector('#output_base64_decoded').innerText = ''
+                }
+                
                 // hex unicode
-                document.querySelector('#output_hex_unicode').innerText = ConvertStringToHexUnicode(text)
+                try {
+                    document.querySelector('#output_hex_unicode').innerText = ConvertStringToHexUnicode(text)
+                } catch {
+                    document.querySelector('#output_hex_unicode').innerText = ''
+                }
                 // hex unicode (javascript)
-                document.querySelector('#output_hex_unicode_javascript').innerText = ConvertStringToHexUnicodeJavaScript(text)
+                try {
+                    document.querySelector('#output_hex_unicode_javascript').innerText = ConvertStringToHexUnicodeJavaScript(text)
+                } catch {
+                    document.querySelector('#output_hex_unicode_javascript').innerText = ''
+                }
                 // hex \x
-                document.querySelector('#output_hex_x').innerText = UnicodeToHexX(ConvertStringToHexUnicode(text))
+                try {
+                    document.querySelector('#output_hex_x').innerText = UnicodeToHexX(ConvertStringToHexUnicode(text))
+                } catch {
+                    document.querySelector('#output_hex_x').innerText = ''
+                }
                 // hex 0x
-                document.querySelector('#output_hex_0x').innerText = UnicodeToHex0x(ConvertStringToHexUnicode(text))
+                try {
+                    document.querySelector('#output_hex_0x').innerText = UnicodeToHex0x(ConvertStringToHexUnicode(text))
+                } catch {
+                    document.querySelector('#output_hex_0x').innerText = ''
+                }
                 // octal 
-                document.querySelector('#output_octal').innerText = ConvertStringToOctal(text)
+                try {
+                    document.querySelector('#output_octal').innerText = ConvertStringToOctal(text)
+                } catch {
+                    document.querySelector('#output_octal').innerText = ''
+                }
                 // hex to string
-                document.querySelector('#output_hex_decoded').innerText = hex_to_ascii(text)
-
-
+                try {
+                    document.querySelector('#output_hex_decoded').innerText = hex_to_ascii(text)
+                } catch {
+                    document.querySelector('#output_hex_decoded').innerText = ''   
+                }
             };      
 
 
