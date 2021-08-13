@@ -26,7 +26,7 @@
                 "allow_http_requests":true
             },
             "http_message_display":{
-                "font_name":"Monospaced",
+                "font_name":"Courier New",
                 "font_size":13,
                 "font_smoothing":true,
                 "highlight_requests":true,
@@ -34,40 +34,190 @@
                 "pretty_print_by_default":true
             },
             "user_interface":{
-                "font_size":18,
-                "look_and_feel":"Light"
+                "font_size":13,
+                "look_and_feel":"Dark"
             }
         },
         "extender":{
             "extensions":[
                 {
-                    "bapp_serial_version":14,
-                    "bapp_uuid":"470b7057b86f41c396a97903377f3d81",
+                    "bapp_serial_version":23,
+                    "bapp_uuid":"3123d5b5f25c4128894d97ea1acc4976",
                     "errors":"ui",
-                    "extension_file":"bapps/470b7057b86f41c396a97903377f3d81/releases/LoggerPlusPlus.jar",
-                    "extension_type":"java",
+                    "extension_file":"bapps\\3123d5b5f25c4128894d97ea1acc4976\\activeScan++.py",
+                    "extension_type":"python",
                     "loaded":true,
-                    "name":"Logger++",
+                    "name":"Active Scan++",
                     "output":"ui"
                 },
                 {
                     "bapp_serial_version":5,
                     "bapp_uuid":"ae2611da3bbc4687953a1f4ba6a4e04c",
                     "errors":"ui",
-                    "extension_file":"bapps/ae2611da3bbc4687953a1f4ba6a4e04c/build/libs/bypass-waf-all.jar",
+                    "extension_file":"bapps\\ae2611da3bbc4687953a1f4ba6a4e04c\\build\\libs\\bypass-waf-all.jar",
                     "extension_type":"java",
                     "loaded":true,
                     "name":"Bypass WAF",
                     "output":"ui"
                 },
                 {
+                    "bapp_serial_version":17,
+                    "bapp_uuid":"470b7057b86f41c396a97903377f3d81",
+                    "errors":"ui",
+                    "extension_file":"bapps\\470b7057b86f41c396a97903377f3d81\\releases\\LoggerPlusPlus.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Logger++",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":23,
+                    "bapp_uuid":"aaaa60ef945341e8a450217a54a11646",
+                    "errors":"ui",
+                    "extension_file":"bapps\\aaaa60ef945341e8a450217a54a11646\\desynchronize-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"HTTP Request Smuggler",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":15,
+                    "bapp_uuid":"17d2949a985c4b7ca092728dba871943",
+                    "errors":"ui",
+                    "extension_file":"bapps\\17d2949a985c4b7ca092728dba871943\\param-miner-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Param Miner",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":11,
+                    "bapp_uuid":"36238b534a78494db9bf2d03f112265c",
+                    "errors":"ui",
+                    "extension_file":"bapps\\36238b534a78494db9bf2d03f112265c\\retirejs-burp-plugin\\target\\burp-retire-js-3.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Retire.js",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":18,
+                    "bapp_uuid":"f9bbac8c4acf4aefa4d7dc92a991af2f",
+                    "errors":"ui",
+                    "extension_file":"bapps\\f9bbac8c4acf4aefa4d7dc92a991af2f\\Autorize.py",
+                    "extension_type":"python",
+                    "loaded":true,
+                    "name":"Autorize",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":5,
+                    "bapp_uuid":"60f172f27a9b49a1b538ed414f9f27c3",
+                    "errors":"ui",
+                    "extension_file":"bapps\\60f172f27a9b49a1b538ed414f9f27c3\\build\\libs\\csrf-scanner-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"CSRF Scanner",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":4,
+                    "bapp_uuid":"2495f6fb364d48c3b6c984e226c02968",
+                    "errors":"ui",
+                    "extension_file":"bapps\\2495f6fb364d48c3b6c984e226c02968\\build\\libs\\collaborator-everywhere-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Collaborator Everywhere",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":5,
+                    "bapp_uuid":"98275a25394a417c9480f58740c1d981",
+                    "errors":"ui",
+                    "extension_file":"bapps\\98275a25394a417c9480f58740c1d981\\build\\libs\\xss-validator-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"XSS Validator",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":37,
+                    "bapp_uuid":"9abaa233088242e8be252cd4ff534988",
+                    "errors":"ui",
+                    "extension_file":"bapps\\9abaa233088242e8be252cd4ff534988\\build\\libs\\turbo-intruder-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Turbo Intruder",
+                    "output":"ui"
+                },
+                {
                     "bapp_serial_version":5,
                     "bapp_uuid":"b324647b6efa4b6a8f346389730df160",
                     "errors":"ui",
-                    "extension_file":"bapps/b324647b6efa4b6a8f346389730df160/burp-requests.jar",
+                    "extension_file":"bapps\\b324647b6efa4b6a8f346389730df160\\burp-requests.jar",
                     "extension_type":"java",
                     "loaded":true,
                     "name":"Copy As Python-Requests",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":32,
+                    "bapp_uuid":"65033cbd2c344fbabe57ac060b5dd100",
+                    "errors":"ui",
+                    "extension_file":"bapps\\65033cbd2c344fbabe57ac060b5dd100\\target\\hackvertor-1.6.2-jar-with-dependencies.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Hackvertor",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":2,
+                    "bapp_uuid":"f89f2837c22c4ab4b772f31522647ed8",
+                    "errors":"ui",
+                    "extension_file":"bapps\\f89f2837c22c4ab4b772f31522647ed8\\build\\libs\\AutoRepeater-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Auto Repeater",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":13,
+                    "bapp_uuid":"f923cbf91698420890354c1d8958fee6",
+                    "errors":"ui",
+                    "extension_file":"bapps\\f923cbf91698420890354c1d8958fee6\\target\\JWT4B-jar-with-dependencies.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"JSON Web Tokens",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":13,
+                    "bapp_uuid":"9cff8c55432a45808432e26dbb2b41d8",
+                    "errors":"ui",
+                    "extension_file":"bapps\\9cff8c55432a45808432e26dbb2b41d8\\build\\libs\\backslash-powered-scanner-all.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Backslash Powered Scanner",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":1,
+                    "bapp_uuid":"8e8f6bb313db46ba9e0a7539d3726651",
+                    "errors":"ui",
+                    "extension_file":"bapps\\8e8f6bb313db46ba9e0a7539d3726651\\reflected_parameters_monitor.jar",
+                    "extension_type":"java",
+                    "loaded":true,
+                    "name":"Reflected Parameters",
+                    "output":"ui"
+                },
+                {
+                    "bapp_serial_version":6,
+                    "bapp_uuid":"a158fd3fc9394253be3aa0bc4c181d1f",
+                    "errors":"ui",
+                    "extension_file":"bapps\\a158fd3fc9394253be3aa0bc4c181d1f\\Burp-MissingScannerChecks.py",
+                    "extension_type":"python",
+                    "loaded":false,
+                    "name":"Additional Scanner Checks",
                     "output":"ui"
                 }
             ],
@@ -76,7 +226,7 @@
             },
             "python":{
                 "folder_for_loading_modules":"",
-                "location_of_jython_standalone_jar_file":""
+                "location_of_jython_standalone_jar_file":"C:\\Users\\alecj\\Downloads\\jython-standalone-2.7.2.jar"
             },
             "ruby":{
                 "location_of_jruby_jar_file":""
@@ -292,7 +442,8 @@
             },
             "log_exceptions_to_local_directory":false,
             "out_of_scope_history_logging_action":"prompt",
-            "submit_anonymous_feedback":true,
+            "show_learn_tab":true,
+            "submit_anonymous_feedback":false,
             "temporary_files_location":""
         },
         "proxy":{
@@ -313,6 +464,9 @@
                 "disable_sni_extension":false,
                 "enable_blocked_algorithms":true
             }
+        },
+        "target":{
+            "view":"left_right_split"
         }
     }
 }
