@@ -2,7 +2,7 @@
 
 #### Clone buffer overflow to current directory
 ```
-git clone https://alecjmaly@github.com/alecjmaly/hacking-myTools.git && mv hacking-myTools/buffer_overflow/* . && rm -rf hacking-myTools
+git clone https://alecjmaly@github.com/alecjmaly/hacking-myTools.git && mv hacking-myTools/exploit_development/buffer_overflow/* . && rm -rf hacking-myTools
 ```
 
 #### Install depedency packages

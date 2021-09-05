@@ -34,7 +34,7 @@ print('\n\nUseful Links:\nhttps://gchq.github.io/CyberChef/#recipe=URL_Decode()\
 
 delimiter = '-'
 orig_string = r'''sdfsdf-'-&#x27;-"-&quot;-`-<-&lt;->-&gt;-&-&amp;-(-)-\-+-*-{-}-;-$-${1+1}-{{1+1}}-<><sCrIPt>-&lt;&gt;&lt;sCrIPt&gt;-sdfsdf'''
-end_string = r'''sdfsdf-'-'-"-"-`-&lt;-&lt;-&gt;-&gt;-&amp;-&amp;-(-)-\-+-*-{-}-;-$-${1+1}-{{1+1}}-&lt;&gt;<script>-&lt;&gt;&lt;sCrIPt&gt;-sdfsdf'''
+end_string = r'''sdfsdf-'-&#x27;-"-&quot;-\`-<-&lt;->-&gt;-&-&amp;-(-)-\\-+-*-{-}-;-$-${1+1}-{{1+1}}-<%= 1+1 %>-&lt;%= 1+1 %&gt;-${1+1}-%{1+1}-@(1+1)-<><sCrIPt>-&lt;&gt;&lt;sCrIPt&gt;-sdfsdf'''
 
 
 print(f'old payload: {orig_string}')
