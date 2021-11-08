@@ -52,6 +52,11 @@ cat /etc/os-release
 printf '\n\n'
 
 
+myprint "[+] arp info: Find virtual machine MAC & IP"
+arp-scan -l
+printf '\n\n'
+
+
 myprint "[+] sudo -l (no password) (also check /etc/sudoers & /etc/sudoers.d)"
 echo '' | sudo -S -l 
 printf '\n\n'
