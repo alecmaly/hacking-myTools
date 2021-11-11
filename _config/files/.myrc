@@ -236,6 +236,9 @@ catc () {
 	find . -name _commands.log -readable -exec cat {} \; 2>/dev/null
 }
 
+getFiletype () {
+  /opt/hacking-myTools/tools/util/getFiletype.py "$1" 2>/dev/null
+}
 
 mt () {
   echo ">>>> get/set ips <<<<"
@@ -279,6 +282,7 @@ mt () {
   echo "mtssh # create ssh key"
   echo "hex2bin"
   echo "bin2hex"
+  echo "getFiletype <file>"
   
 }
 
