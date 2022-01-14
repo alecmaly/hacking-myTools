@@ -45,6 +45,11 @@ CALL :ColorLine "   %E%33m[+] environment variables%E%97m"
 set
 echo.
 
+CALL :ColorLine "   %E%33m[+] Any interesting listening devices/apps on local network?%E%97m"
+powershell.exe -c 'Get-NetTCPConnection -State Listen |% { $p = Get-Process -Id $_.OwningProcess; Write-Host "$($_.LocalAddress.PadRight(16))$($_.LocalPort.ToString().PadRight(6)) - $($p.ProcessName) ($($p.Id))" }'
+echo.
+
+
 CALL :ColorLine "   %E%33m[+] drives%E%97m"
 powershell -c "get-psdrive"
 echo.

@@ -56,6 +56,9 @@ myprint "[+] arp info: Find virtual machine MAC & IP"
 arp-scan -l
 printf '\n\n'
 
+myprint "[+] Any interesting listening devices/apps on local network?"
+lsof -P -iTCP | grep -e "" -e LISTEN
+printf '\n\n'
 
 myprint "[+] sudo -l (no password) (also check /etc/sudoers & /etc/sudoers.d)"
 echo '' | sudo -S -l 
