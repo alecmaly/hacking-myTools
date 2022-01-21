@@ -5,6 +5,11 @@ trace.axd
 README.md
 CFIDE/administrator
 
+log/production.log
+config/app_env.yml
+config/database.yml
+config/secrets.yml
+
 CGIDIRSauth_data/auth_user_file.txt
 PDG_Cart/oder.log
 CGIDIRS%2e%2e/abyss.conf
