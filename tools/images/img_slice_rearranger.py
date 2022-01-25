@@ -1,9 +1,7 @@
-from email.policy import default
 from tkinter import *
 from tkinter import filedialog
-from PIL import ImageTk
 import PIL
-from PIL import Image
+from PIL import ImageTk, Image
 from itertools import product
 import os
 from os import path, listdir
