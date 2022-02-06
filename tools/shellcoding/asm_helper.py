@@ -30,6 +30,8 @@ if args.mode == 'asm':
     print('\n[+] shellcode')
     print(asm(args.input))
 
+    print(f"\n[+] Shellcode Length: {len(asm(args.input))}")
+
     if b'\x00' in asm(args.input):
         print("\n[!] Beware, shellcode includes null bytes!") 
     else: 
@@ -46,3 +48,10 @@ if args.mode == 'disasm':
 
     print("\n[+] Disassembly")
     print(disasm(args.input))
+
+    print(f"\n[+] Length: {len(args.input)}")
+
+    if b"\x00" in args.input:
+        print("[!] You have nulls, try again.")
+    else: 
+        print("\n[+] No NULL bytes detected in shellcode... nice!") 
