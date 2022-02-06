@@ -2,6 +2,23 @@ assemble() {
     python3 /opt/hacking-myTools/tools/shellcoding/asm_helper.py -m asm $@
 }
 
+assemble86() {
+    #!/bin/bash
+    # compiles .nasm to binary
+    base=`basepath $1 .nasm`
+    base=`basepath $1 .asm`
+    nasm -F dwarf -g -F dwarf -f elf32 -o "${base}".o "${1}"
+
+    # link binary
+    # if compiling on x64, add parameters in []
+    # -N : make text section executable
+    # -z execstack : make stack executable
+    ld -m elf_i386 -z execstack -N -o "${base}" "${base}".o 
+
+
+    rm "${base}".o
+}
+
 disassemble() {
     python3 /opt/hacking-myTools/tools/shellcoding/asm_helper.py -m disasm $@
 }
