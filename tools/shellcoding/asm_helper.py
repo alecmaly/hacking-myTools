@@ -1,7 +1,7 @@
 #!/bin/usr/python3
 import argparse
 import os
-import sys
+import re
 from pwn import *
 
 
@@ -21,7 +21,8 @@ if args.mode == 'asm':
     if os.path.exists(args.input):
         args.input = open(args.input, 'r').read()
 
-
+    # replace comments from assembly
+    args.input = re.sub(r';.*', '', args.input)
     print("\n[+] assembly")
     print(disasm(asm(args.input)))
     print('\n[+] shellcode')
