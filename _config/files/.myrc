@@ -283,6 +283,10 @@ mt () {
   echo "hex2bin"
   echo "bin2hex"
   echo "getFiletype <file>"
+
+  echo
+  echo ">>>> Shellcoding/Reversing Helper Functions <<<<"
+  echo "mts"
   
 }
 
@@ -589,3 +593,6 @@ alias code='/snap/bin/code --no-sandbox'
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+# load shellcoding helper functions
+source /opt/hacking-myTools/_config/files/.shellcoding_functions
