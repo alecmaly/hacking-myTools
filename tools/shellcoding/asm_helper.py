@@ -23,7 +23,8 @@ if args.mode == 'asm':
         args.input = open(args.input, 'r').read()
 
     # replace comments from assembly
-    args.input = re.sub(r';.*', '', args.input)
+    # args.input = re.sub(r';.*', '', args.input)
+
     print("\n[+] assembly")
     print(disasm(asm(args.input)))
     print('\n[+] shellcode')
