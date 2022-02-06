@@ -43,7 +43,7 @@ if args.mode == 'disasm':
         args.input = open(args.input, 'rb').read()
     else:
         # remove characters: \x, 0x, " 
-        args.input = re.sub(r'\\x|0x|\"', '', args.input)
+        args.input = re.sub(r'\\x|0x|\"| ', '', args.input)
         args.input = unhex(args.input)
 
     print("\n[+] Disassembly")
