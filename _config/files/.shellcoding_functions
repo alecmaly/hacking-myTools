@@ -34,8 +34,9 @@ string_to_push() {
 }
 
 mts () {
-    echo "assemble <assembly instructions|file>"
-    echo "disassemble -i <shellcode|file>"
+    echo "assemble <assembly instructions|file>  -  quick assembly checker"
+    echo "disassemble -i <shellcode|file>  -  quick disassembly checker"
+    echo "assemble86 <file.asm|file.nasm>  -  assemble for x86"
     echo "dump-shellcode <ELF>"
     echo "string_to_push <string>  -  creates push statements with string reversed"
 }
