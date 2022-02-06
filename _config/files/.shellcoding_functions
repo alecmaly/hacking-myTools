@@ -5,8 +5,8 @@ assemble() {
 assemble86() {
     #!/bin/bash
     # compiles .nasm to binary
-    base=`basepath $1 .nasm`
-    base=`basepath $1 .asm`
+    base=`basename $1 .nasm`
+    base=`basename $1 .asm`
     nasm -F dwarf -g -F dwarf -f elf32 -o "${base}".o "${1}"
 
     # link binary
