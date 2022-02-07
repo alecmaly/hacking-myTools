@@ -32,10 +32,20 @@ string_to_push() {
     python3 /opt/hacking-myTools/tools/shellcoding/string_to_push.py $@
 }
 
+getsyscall() {  
+    echo "[+] syscall by string"
+    cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep "__NR_\S*$1"  
+
+    echo "[+] syscall by number"
+    cat /usr/include/i386-linux-gnu/asm/unistd_32.h | grep " $1$"  
+}
+
 mts () {
     echo "assemble <assembly instructions|file>  -  quick assembly checker"
     echo "disassemble -i <shellcode|file>  -  quick disassembly checker"
     echo "assemble86 <file.asm|file.nasm>  -  assemble for x86"
     echo "dump-shellcode <ELF>"
     echo "string_to_push <string>  -  creates push statements with string reversed"
+    echo "getsyscall <number|string> - get syscall by number or string"
 }
+
