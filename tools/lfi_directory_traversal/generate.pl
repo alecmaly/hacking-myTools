@@ -14,6 +14,7 @@ open(FH, '>', "lfi_directory_traversal_wordlist.txt") or die $!;
 
 $counter = 0;
 foreach $file (@files) {
+    print $file . "\n";
     @traversals = TraversalEngine($OS, $min_deep, $deep, $file);
     foreach $trav (@traversals) {
         print $trav . "\n";
