@@ -8,7 +8,6 @@ my $deep = 7;
 my @files = ("/etc/passwd", "boot.ini");
 
 
-#output file
 $output_file = "lfi_directory_traversal_wordlist.txt";
 open(FH, '>', $output_file) or die $!;
 
