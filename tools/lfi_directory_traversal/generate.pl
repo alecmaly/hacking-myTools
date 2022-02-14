@@ -8,9 +8,9 @@ my $deep = 7;
 my @files = ("/etc/passwd", "boot.ini");
 
 
-
 #output file
-open(FH, '>', "lfi_directory_traversal_wordlist.txt") or die $!;
+$output_file = "lfi_directory_traversal_wordlist.txt";
+open(FH, '>', $output_file) or die $!;
 
 $counter = 0;
 foreach $file (@files) {
@@ -29,7 +29,9 @@ foreach $file (@files) {
         $counter = $counter + 1;
     }
 }
+close($FH);
 
-
-print "\n\n[+] " . $counter . " paths generated --> lfi_directory_traversal_wordlist.txt";
-
+$count = `wc -l < $output_file`;
+die "wc failed: $?" if $?;
+chomp($count);
+print "\n\n[+] " . $count . " paths generated --> ".$output_file;
