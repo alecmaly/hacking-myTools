@@ -445,7 +445,7 @@ mtInitialWindows () {
   windownf "$1" "$2" "useful_files/files/windows/github/PowerSploit/Privesc/PowerUp.ps1" "$3PowerUp.ps1" >> /tmp/download_tmp.txt
   windownf "$1" "$2" "tools/privesc/windows/mywinenum.bat" "$3mywinenum.bat" >> /tmp/download_tmp.txt
   windownf "$1" "$2" "tools/privesc/windows/pspy.exe" "$3pspy.exe" >> /tmp/download_tmp.txt
-  windownf "$1" "$2" "useful_files/files/all/github/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/binaries/Obfuscated Releases/winPEASany.exe" "$3winPEASany.exe" >> /tmp/download_tmp.txt
+  windownf "$1" "$2" "useful_files/files/windows/winPEASany.exe" "$3winPEASany.exe" >> /tmp/download_tmp.txt
   windownf "$1" "$2" "useful_files/files/windows/jaws-enum.ps1" "$3jaws-enum.ps1" >> /tmp/download_tmp.txt
   windownf "$1" "$2" "useful_files/files/windows/github/Ghostpack-CompiledBinaries/Seatbelt.exe" "$3Seatbelt.exe" >> /tmp/download_tmp.txt
 
