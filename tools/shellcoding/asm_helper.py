@@ -1,11 +1,27 @@
 #!/bin/usr/python3
 import argparse
+from argparse import RawTextHelpFormatter
 import os
 import sys
 import re
 from pwn import *
 
-parser = argparse.ArgumentParser()
+# assemble -i "xor $eax, $eax"
+# assemble -i "jmp .-70"
+
+example_usage = """
+Example Usage:
+Assemble:
+    assemble -i "xor eax, eax"
+    
+- Relative jump:
+    assemble -i "jmp .-70"
+
+Disassemble
+    disassemble -i "\\x31\\xc9\\xf7\\xe1\\xb0\\x0b\\x51\\x68\\x2f\\x2f\\x73\\x68\\x68\\x2f\\x62\\x69\\x6e\\x89\\xe3\\xcd\\x80"                                                                                                       
+"""
+
+parser = argparse.ArgumentParser(description="test description", epilog=example_usage, formatter_class=RawTextHelpFormatter)
 parser.add_argument('--mode', '-m', required=True, choices=['asm', 'disasm'], help='asm | diasm (disassembles shellcode) -- dump-shellcode - dump shellcode from ELF')
 parser.add_argument('--arch', '-a', default='i386', choices=['aarch64', 'alpha', 'amd64', 'arm', 'avr', 'cris', 'i386', 'ia64', 'm68k', 'mips', 'mips64', 'msp430', 'none', 'powerpc', 'powerpc64', 'riscv', 's390', 'sparc', 'sparc64', 'thumb', 'vax'], help='architecture: i386, aarch64, amd64, arm, mips')
 #architectures= {'aarch64': {'bits': 64, 'endian': 'little'}, 'alpha': {'bits': 64, 'endian': 'little'}, 'amd64': {'bits': 64, 'endian': 'little'}, 'arm': {'bits': 32, 'endian': 'little'}, 'avr': {'bits': 8, 'endian': 'little'}, 'cris': {'bits': 32, 'endian': 'little'}, 'i386': {'bits': 32, 'endian': 'little'}, 'ia64': {'bits': 64, 'endian': 'big'}, 'm68k': {'bits': 32, 'endian': 'big'}, 'mips': {'bits': 32, 'endian': 'little'}, 'mips64': {'bits': 64, 'endian': 'little'}, 'msp430': {'bits': 16, 'endian': 'little'}, 'none': {}, 'powerpc': {'bits': 32, 'endian': 'big'}, 'powerpc64': {'bits': 64, 'endian': 'big'}, 'riscv': {'bits': 32, 'endian': 'little'}, 's390': {'bits': 32, 'endian': 'big'}, 'sparc': {'bits': 32, 'endian': 'big'}, 'sparc64': {'bits': 64, 'endian': 'big'}, 'thumb': {'bits': 32, 'endian': 'little'}, 'vax': {'bits': 32, 'endian': 'little'}}
