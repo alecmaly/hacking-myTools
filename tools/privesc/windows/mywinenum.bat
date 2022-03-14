@@ -125,6 +125,10 @@ CALL :ColorLine "   %E%33m[+] Network%E%97m"
 netstat -ano | findstr LISTENING
 echo.
 
+echo.
+CALL :ColorLine "   %E%33m[+] Open ports with process names%E%97m"
+powershell.exe -c "Get-NetTCPConnection -State Listen | Select-Object -Property *,@{'Name' = 'ProcessName';'Expression'={(Get-Process -Id $_.OwningProcess).Name}} | Format-Table -Property LocalAddress,LocalPort,OwningProcess,ProcessName"
+echo.
 
 
 
