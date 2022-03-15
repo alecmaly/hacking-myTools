@@ -96,18 +96,6 @@ tools ()
     cd /opt/hacking-myTools/tools
 }
 
-mylinenum () {
-  cd /opt/hacking-myTools/tools/privesc/linux
-}
-
-winpeasexe () {
-	cd "/opt/hacking-myTools/useful_files/files/all/github/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASexe/binaries/Obfuscated Releases"
-}
-
-winpeasbat () {
-	cd "/opt/hacking-myTools/useful_files/files/all/github/privilege-escalation-awesome-scripts-suite/winPEAS/winPEASbat"
-}
-
 
 powerup () {
   checkip t
@@ -256,7 +244,6 @@ mt () {
   echo ">>>> Linux <<<<"
 	echo "mtInitialLinux"
   echo "cat /opt/hacking-myTools/tools/privesc/linux/recon_functions.sh | clip"
-  echo "mylinenum"
 
   echo
   echo ">>>> Windows <<<<"
@@ -264,8 +251,6 @@ mt () {
   echo "cat /opt/hacking-myTools/tools/privesc/windows/recon_functions.ps1 | clip"
 	echo "windows pspy: cd /opt/hacking-myTools/tools/privesc/windows"
   echo "powerup <port>"
-  echo "winpeasexe"
-  echo "winpeasbat"
   echo "amsi <port>"
   echo "windown <port>"
   echo "** don't forget Seatbelt **"
