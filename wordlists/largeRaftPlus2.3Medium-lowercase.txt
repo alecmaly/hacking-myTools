@@ -7,6 +7,8 @@ CFIDE/administrator
 .idea
 swagger.json
 api/swagger.json
+assets/WEB-INF/web.xml
+WEB-INF/web.xml
 
 log/production.log
 config/app_env.yml
