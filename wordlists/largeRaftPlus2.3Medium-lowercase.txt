@@ -6,6 +6,7 @@ README.md
 CFIDE/administrator
 .idea
 swagger.json
+api/swagger.json
 
 log/production.log
 config/app_env.yml
