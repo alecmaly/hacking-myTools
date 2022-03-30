@@ -5,6 +5,7 @@ trace.axd
 README.md
 CFIDE/administrator
 .idea
+swagger.json
 
 log/production.log
 config/app_env.yml
