@@ -248,6 +248,11 @@ reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallEle
 echo.
 
 
+echo.
+CALL :ColorLine "   %E%33m[+] Check non-default drivers installed%E%97m"
+driverquery /v | findstr /iv "system32\\drivers"
+echo.
+
 
 
 
