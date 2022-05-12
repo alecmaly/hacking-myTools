@@ -131,6 +131,12 @@ powershell.exe -c "Get-NetTCPConnection -State Listen | Select-Object -Property 
 echo.
 
 
+echo.
+CALL :ColorLine "   %E%33m[+] Running programs + their owner and arguments%E%97m"
+powershell.exe -c "Get-WmiObject -Query 'Select * from Win32_Process' | where {$_.Name -notlike 'svchost*'} | Select Name, Handle, @{Label='Owner';Expression={$_.GetOwner().User}}, CommandLine | ft -AutoSize"
+echo.
+
+
 
 
 @REM credentials
@@ -234,6 +240,9 @@ CALL :ColorLine "   %E%33m[+] Scheduled Tasks (run as SYSTEM)%E%97m"
 powershell.exe -exec bypass -enc RwBlAHQALQBTAGMAaABlAGQAdQBsAGUAZABUAGEAcwBrACAAfAAlACAAewAgACQAdAAgAD0AIAAkAF8AOwAgAEcAZQB0AC0AUwBjAGgAZQBkAHUAbABlAGQAVABhAHMAawBJAG4AZgBvACAALQBUAGEAcwBrAE4AYQBtAGUAIAAkAF8ALgBUAGEAcwBrAE4AYQBtAGUAIAAtAEUAcgByAG8AcgBBAGMAdABpAG8AbgAgAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAfAAgAHMAZQBsAGUAYwB0ACAAQAB7AE4AYQBtAGUAPQAnAFMAdABhAHQAZQAnADsAIABFAHgAcAByAGUAcwBzAGkAbwBuAD0AewAkAHQALgBTAHQAYQB0AGUAfQB9ACwAVABhAHMAawBOAGEAbQBlACwAVABhAHMAawBQAGEAdABoACwATABhAHMAdABSAHUAbgBUAGkAbQBlACwATgBlAHgAdABSAHUAbgBUAGkAbQBlACwAQAB7AE4AYQBtAGUAPQAnAEEAYwB0AGkAbwBuAHMAJwA7ACAARQB4AHAAcgBlAHMAcwBpAG8AbgA9AHsAJAB0AC4AQQBjAHQAaQBvAG4AcwAuAGUAeABlAGMAdQB0AGUAfQB9ACwAQAB7AE4AYQBtAGUAPQAnAEEAcgBnAHUAbQBlAG4AdABzACcAOwAgAEUAeABwAHIAZQBzAHMAaQBvAG4APQB7ACQAdAAuAEEAYwB0AGkAbwBuAHMALgBBAHIAZwB1AG0AZQBuAHQAcwB9AH0AIAB9AA==
 echo.
 
+CALL :ColorLine "   %E%33m[+] Sheduled Tasks + their paths and arguments%E%97m"
+powershell.exe -c "Get-ScheduledTask | where state -ne "Disabled" | select TaskName, @{Label="Arguments";Expression={$_.Actions.Arguments}}, @{Label="Execute";Expression={$_.Actions.Execute}} | ft -AutoSize"
+echo.
 
 CALL :ColorLine "   %E%33m[+] can write to PATH%E%97m"
 for %%A in ("%%path:;=";"%%") do ( cmd.exe /c icacls "%%~A" 2>nul | findstr /i "(F) (M) (W) :\" | findstr /i ":\\ everyone authenticated users todos %%username%%" && echo. )
